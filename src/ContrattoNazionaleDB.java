@@ -14,7 +14,7 @@ public class ContrattoNazionaleDB {
         this.levelOfContract = levelOfContract;
     }
     /**
-     * Added void method printContracts for switch
+     * Added void method getTypeOfContract for switch
      * @param contract of the single employee
      */
 
