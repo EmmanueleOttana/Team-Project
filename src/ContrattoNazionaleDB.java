@@ -14,11 +14,13 @@ public class ContrattoNazionaleDB {
         this.levelOfContract = levelOfContract;
     }
     /**
-     * Added void method printContracts for switch
+     * Added void method getTypeOfContract for switch
      * @param contract of the single employee
      */
-    public static void printContracts(Contracts contract){
-        switch(contract){
+
+    public Contracts getTypeOfContract(Contracts contract) {
+        typeOfContract = contract;
+        switch(contract) {
             case DETERMINATO:
                 System.out.println("Contratto a tempo determinato");
                 break;
@@ -50,10 +52,7 @@ public class ContrattoNazionaleDB {
                 System.out.println("Contratto a Somministrazione");
                 break;
         }
-    }
-    public Contracts getTypeOfContract() {
         return typeOfContract;
-
     }
 
 }
