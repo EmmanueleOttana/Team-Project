@@ -2,7 +2,7 @@ import java.time.LocalDate;
 public class Employees {
     public String name;
     public String surName;
-    public int ID;
+    public long ID;
     public String CodiceFiscale;
     public String typeOfWork;
     public String typeOfContract;
@@ -11,7 +11,7 @@ public class Employees {
     }
     public Employees(String name,
                      String surName,
-                     int ID,
+                     long ID,
                      String codiceFiscale,
                      String typeOfWork,
                      String typeOfContract, String dateOfBirth)
@@ -34,7 +34,7 @@ public class Employees {
         return surName;
     }
 
-    public int getID() {
+    public long getID() {
         return ID;
     }
 
