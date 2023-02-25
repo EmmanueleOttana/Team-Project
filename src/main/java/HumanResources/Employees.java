@@ -1,4 +1,5 @@
-import java.time.LocalDate;
+package HumanResources;
+
 public class Employees {
     public String name;
     public String surName;
@@ -64,5 +65,18 @@ public class Employees {
 
     public String getDateOfBirth() {
         return dateOfBirth;
+    }
+
+    @Override
+    public String toString() {
+        return "Employees{" +
+                "name='" + name + '\'' +
+                ", surName='" + surName + '\'' +
+                ", ID=" + ID +
+                ", CodiceFiscale='" + CodiceFiscale + '\'' +
+                ", typeOfWork='" + typeOfWork + '\'' +
+                ", typeOfContract='" + typeOfContract + '\'' +
+                ", dateOfBirth='" + dateOfBirth + '\'' +
+                '}';
     }
 }

@@ -1,4 +1,5 @@
-import java.time.LocalDate;
+import HumanResources.Employees;
+
 import java.util.Date;
 
 public class Licenziamento extends Employees {
