@@ -1,11 +1,12 @@
-import java.time.LocalDate;
 public class Performance{
+    Employees employee;
     public int rating; //valutazioni
     public String review; //commenti
     public int productivityLevel;
     public int skillLevel;
     public int promotions;
-    public Performance(int rating, String review, int productivityLevel, int skillLevel, int promotions) {
+    public Performance(Employees employee,int rating, String review, int productivityLevel, int skillLevel, int promotions) {
+        this.employee = employee;
         this.rating = rating;
         this.review = review;
         this.productivityLevel = productivityLevel;

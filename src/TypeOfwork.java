@@ -1,10 +1,12 @@
 public class TypeOfwork {
 
+    Employees employee;
     public String manualWork;
     public String staticWork;
     public String transferWork;
 
-    public TypeOfwork(String manualWork, String staticWork, String transferWork) {
+    public TypeOfwork(Employees employee, String manualWork, String staticWork, String transferWork) {
+        this.employee = employee;
         this.manualWork = manualWork;
         this.staticWork = staticWork;
         this.transferWork = transferWork;

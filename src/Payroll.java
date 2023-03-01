@@ -1,6 +1,5 @@
-import java.time.LocalDate;
-
 public class Payroll {
+    Employees employee;
     public boolean presenza; //presence
     public int oreAssenze; //absentHours
     public int oreContratto; //contractHours
@@ -18,7 +17,6 @@ public class Payroll {
         this.retribuzioneLorda = retribuzioneLorda;
         this.retribuzioneNetta = retribuzioneNetta;
     }
-    Employees employees=new Employees();
 
     public boolean isPresenza() {
         return presenza;

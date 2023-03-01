@@ -1,25 +1,24 @@
-import java.time.LocalDate;
 public class Employees {
     public String name;
-    public String surName;
+    public String surname;
     public int ID;
+    public static int totalEmployeeId;
     public String CodiceFiscale;
     public String typeOfWork;
     public String typeOfContract;
     public String dateOfBirth;
-    public Employees(){
-    }
+
     public Employees(String name,
-                     String surName,
-                     int ID,
+                     String surname,
                      String codiceFiscale,
                      String typeOfWork,
                      String typeOfContract, String dateOfBirth)
     {
         this.name = name;
-        this.surName = surName;
-        this.ID = ID;
-        CodiceFiscale = codiceFiscale;
+        this.surname = surname;
+        totalEmployeeId ++;
+        this.ID = totalEmployeeId;
+        this.CodiceFiscale = codiceFiscale;
         this.typeOfWork = typeOfWork;
         this.typeOfContract = typeOfContract;
         this.dateOfBirth = dateOfBirth;
@@ -30,8 +29,8 @@ public class Employees {
         return name;
     }
 
-    public String getSurName() {
-        return surName;
+    public String getSurname() {
+        return surname;
     }
 
     public int getID() {

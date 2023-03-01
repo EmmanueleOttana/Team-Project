@@ -1,19 +1,22 @@
-import java.time.LocalDate;
 import java.util.List;
 
 public class Benefits {
 
+    Employees employee;
     public int infortuni;
     public int giorniMalattia;
     public int ferie;
     public double premiProduzione;
     List<String> beneficiMaterialiAziendali;
 
-    public Benefits(String name, String surName, int ID, String codiceFiscale, String typeOfWork, String typeOfContract, LocalDate dateOfBirth)
-    {
-
+    public Benefits(Employees employee, int infortuni, int giorniMalattia, int ferie, double premiProduzione, List<String> beneficiMaterialiAziendali) {
+        this.employee = employee;
+        this.infortuni = infortuni;
+        this.giorniMalattia = giorniMalattia;
+        this.ferie = ferie;
+        this.premiProduzione = premiProduzione;
+        this.beneficiMaterialiAziendali = beneficiMaterialiAziendali;
     }
-
 
     public int getInfortuni() {
         return infortuni;

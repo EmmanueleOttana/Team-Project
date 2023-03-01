@@ -1,10 +1,14 @@
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeesDB{
-    List<Employees> employees = new ArrayList<>();
-    public EmployeesDB(String name, String surName, int ID, String codiceFiscale, String typeOfWork, String typeOfContract, LocalDate dateOfBirth, List<Employees> employees) {
-        this.employees = employees;
+    static List<Employees> employees = new ArrayList<>();
+
+    Employees user1 = new Employees("Harry","Potter","PTTHRR91D14F158I","Programmer","Full time","14/04/1991");
+
+
+    public void addEmployeeDB(Employees employee){
+        employees.add(employee);
     }
+
 }
