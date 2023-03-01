@@ -1,3 +1,5 @@
+import HumanResources.Employees;
+
 public class TypeOfwork {
 
     Employees employee;

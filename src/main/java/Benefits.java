@@ -1,3 +1,5 @@
+import HumanResources.Employees;
+
 import java.util.List;
 
 public class Benefits {

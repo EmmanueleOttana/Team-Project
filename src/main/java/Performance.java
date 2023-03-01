@@ -1,3 +1,5 @@
+import HumanResources.Employees;
+
 public class Performance{
     Employees employee;
     public int rating; //valutazioni
@@ -5,7 +7,7 @@ public class Performance{
     public int productivityLevel;
     public int skillLevel;
     public int promotions;
-    public Performance(Employees employee,int rating, String review, int productivityLevel, int skillLevel, int promotions) {
+    public Performance(Employees employee, int rating, String review, int productivityLevel, int skillLevel, int promotions) {
         this.employee = employee;
         this.rating = rating;
         this.review = review;

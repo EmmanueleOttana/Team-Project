@@ -2,8 +2,9 @@ package HumanResources;
 
 public class Employees {
     public String name;
-    public String surName;
+    public String surname;
     public int ID;
+    public static int totalIdEmployees;
     public String CodiceFiscale;
     public String typeOfWork;
     public String typeOfContract;
@@ -11,15 +12,15 @@ public class Employees {
     public Employees(){
     }
     public Employees(String name,
-                     String surName,
-                     int ID,
+                     String surname,
                      String codiceFiscale,
                      String typeOfWork,
                      String typeOfContract, String dateOfBirth)
     {
         this.name = name;
-        this.surName = surName;
-        this.ID = ID;
+        this.surname = surname;
+        totalIdEmployees ++;
+        this.ID = totalIdEmployees;
         CodiceFiscale = codiceFiscale;
         this.typeOfWork = typeOfWork;
         this.typeOfContract = typeOfContract;
@@ -31,8 +32,8 @@ public class Employees {
         return name;
     }
 
-    public String getSurName() {
-        return surName;
+    public String getSurname() {
+        return surname;
     }
 
     public int getID() {
@@ -71,7 +72,7 @@ public class Employees {
     public String toString() {
         return "Employees{" +
                 "name='" + name + '\'' +
-                ", surName='" + surName + '\'' +
+                ", surName='" + surname + '\'' +
                 ", ID=" + ID +
                 ", CodiceFiscale='" + CodiceFiscale + '\'' +
                 ", typeOfWork='" + typeOfWork + '\'' +

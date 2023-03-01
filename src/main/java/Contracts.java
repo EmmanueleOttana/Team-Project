@@ -10,6 +10,3 @@ public enum Contracts {
         CO_CO_CO,
         SOMMINISTRAZIONE
     }
-
-
-    //creare metodo per switchare contratto
