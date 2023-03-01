@@ -1,3 +1,5 @@
+package HumanResources;
+
 public class Admin {
 
     public String username;

@@ -1,24 +1,26 @@
+package HumanResources;
+
 public class Employees {
     public String name;
-    public String surname;
+    public String surName;
     public int ID;
-    public static int totalEmployeeId;
     public String CodiceFiscale;
     public String typeOfWork;
     public String typeOfContract;
     public String dateOfBirth;
-
+    public Employees(){
+    }
     public Employees(String name,
-                     String surname,
+                     String surName,
+                     int ID,
                      String codiceFiscale,
                      String typeOfWork,
                      String typeOfContract, String dateOfBirth)
     {
         this.name = name;
-        this.surname = surname;
-        totalEmployeeId ++;
-        this.ID = totalEmployeeId;
-        this.CodiceFiscale = codiceFiscale;
+        this.surName = surName;
+        this.ID = ID;
+        CodiceFiscale = codiceFiscale;
         this.typeOfWork = typeOfWork;
         this.typeOfContract = typeOfContract;
         this.dateOfBirth = dateOfBirth;
@@ -29,8 +31,8 @@ public class Employees {
         return name;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getSurName() {
+        return surName;
     }
 
     public int getID() {
@@ -63,5 +65,18 @@ public class Employees {
 
     public String getDateOfBirth() {
         return dateOfBirth;
+    }
+
+    @Override
+    public String toString() {
+        return "Employees{" +
+                "name='" + name + '\'' +
+                ", surName='" + surName + '\'' +
+                ", ID=" + ID +
+                ", CodiceFiscale='" + CodiceFiscale + '\'' +
+                ", typeOfWork='" + typeOfWork + '\'' +
+                ", typeOfContract='" + typeOfContract + '\'' +
+                ", dateOfBirth='" + dateOfBirth + '\'' +
+                '}';
     }
 }
