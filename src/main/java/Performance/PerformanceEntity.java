@@ -1,11 +1,12 @@
-import java.time.LocalDate;
-public class Performance{
+package Performance;
+
+public class PerformanceEntity {
     public int rating; //valutazioni
     public String review; //commenti
     public int productivityLevel;
     public int skillLevel;
     public int promotions;
-    public Performance(int rating, String review, int productivityLevel, int skillLevel, int promotions) {
+    public PerformanceEntity(int rating, String review, int productivityLevel, int skillLevel, int promotions) {
         this.rating = rating;
         this.review = review;
         this.productivityLevel = productivityLevel;
@@ -34,4 +35,3 @@ public class Performance{
     public void updatePerformance(){};
     public void getPerformance(){};
 }
-

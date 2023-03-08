@@ -1,8 +1,10 @@
-public class PeoplePower {
+package PeoplePower;
+
+public class PayRollEntity {
     String Agency;
     String descriptionOfApp;
     String NationalContract;
-    public PeoplePower(String agency, String descriptionOfApp, String nationalContract)
+    public PayRollEntity(String agency, String descriptionOfApp, String nationalContract)
     {
         Agency = agency;
         this.descriptionOfApp = descriptionOfApp;

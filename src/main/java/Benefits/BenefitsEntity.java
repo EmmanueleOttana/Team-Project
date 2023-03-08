@@ -1,15 +1,16 @@
+package Benefits;
+
 import java.time.LocalDate;
 import java.util.List;
 
-public class Benefits {
-
+public class BenefitsEntity {
     public int infortuni;
     public int giorniMalattia;
     public int ferie;
     public double premiProduzione;
     List<String> beneficiMaterialiAziendali;
 
-    public Benefits(String name, String surName, int ID, String codiceFiscale, String typeOfWork, String typeOfContract, LocalDate dateOfBirth)
+    public BenefitsEntity(String name, String surName, int ID, String codiceFiscale, String typeOfWork, String typeOfContract, LocalDate dateOfBirth)
     {
 
     }

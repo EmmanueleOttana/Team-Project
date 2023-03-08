@@ -1,19 +1,17 @@
-package HumanResources;
+package Admin;
 
-public class Admin {
-
+public class AdminEntity {
     public String username;
     public String password;
     public String role;
     public String authorizations;
 
-    public Admin(String username, String password, String role, String authorizations) {
+    public AdminEntity(String username, String password, String role, String authorizations) {
         this.username = username;
         this.password = password;
         this.role = role;
         this.authorizations = authorizations;
     }
-
     public String getUsername() {
         return username;
     }

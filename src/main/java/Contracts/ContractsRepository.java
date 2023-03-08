@@ -1,12 +1,13 @@
-//renderlo interfacce
-public class ContrattoNazionaleDB {
-    public Contracts typeOfContract;
+package Contracts;
+
+public class ContractsRepository {
+    public ContractsEntity typeOfContract;
     public double durationTime;
     public double wage;
     public boolean trialPeriod;
     public boolean internshipAlreadyDone;
     public int levelOfContract; //da vedere
-    public ContrattoNazionaleDB(double durationTime, double wage, boolean trialPeriod, boolean internshipAlreadyDone, int levelOfContract) {
+    public ContractsRepository(double durationTime, double wage, boolean trialPeriod, boolean internshipAlreadyDone, int levelOfContract) {
         this.durationTime = durationTime;
         this.wage = wage;
         this.trialPeriod = trialPeriod;
@@ -18,7 +19,7 @@ public class ContrattoNazionaleDB {
      * @param contract of the single employee
      */
 
-    public Contracts getTypeOfContract(Contracts contract) {
+    public ContractsEntity getTypeOfContract(ContractsEntity contract) {
         typeOfContract = contract;
         switch(contract) {
             case DETERMINATO:
@@ -54,5 +55,4 @@ public class ContrattoNazionaleDB {
         }
         return typeOfContract;
     }
-
 }

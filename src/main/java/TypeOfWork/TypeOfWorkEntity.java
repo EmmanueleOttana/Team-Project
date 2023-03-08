@@ -1,10 +1,11 @@
-public class TypeOfwork {
+package TypeOfWork;
 
+public class TypeOfWorkEntity {
     public String manualWork;
     public String staticWork;
     public String transferWork;
 
-    public TypeOfwork(String manualWork, String staticWork, String transferWork) {
+    public TypeOfWorkEntity(String manualWork, String staticWork, String transferWork) {
         this.manualWork = manualWork;
         this.staticWork = staticWork;
         this.transferWork = transferWork;

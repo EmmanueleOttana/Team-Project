@@ -1,6 +1,8 @@
-import HumanResources.Employees;
+package Payroll;
 
-public class Payroll {
+import Employee.EmployeeEntity;
+
+public class PayrollEntity {
     public boolean presenza; //presence
     public int oreAssenze; //absentHours
     public int oreContratto; //contractHours
@@ -9,7 +11,7 @@ public class Payroll {
     public double retribuzioneLorda;
     public double retribuzioneNetta;
 
-    public Payroll(boolean presenza, int oreAssenze, int oreContratto, int oreEffettuate, double trattenuteStato, double retribuzioneLorda, double retribuzioneNetta) {
+    public PayrollEntity(boolean presenza, int oreAssenze, int oreContratto, int oreEffettuate, double trattenuteStato, double retribuzioneLorda, double retribuzioneNetta) {
         this.presenza = presenza;
         this.oreAssenze = oreAssenze;
         this.oreContratto = oreContratto;
@@ -18,7 +20,7 @@ public class Payroll {
         this.retribuzioneLorda = retribuzioneLorda;
         this.retribuzioneNetta = retribuzioneNetta;
     }
-    Employees employees=new Employees();
+    EmployeeEntity employees=new EmployeeEntity();
 
     public boolean isPresenza() {
         return presenza;

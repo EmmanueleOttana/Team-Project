@@ -1,6 +1,6 @@
-package HumanResources;
+package Employee;
 
-public class Employees {
+public class EmployeeEntity {
     public String name;
     public String surName;
     public int ID;
@@ -8,14 +8,14 @@ public class Employees {
     public String typeOfWork;
     public String typeOfContract;
     public String dateOfBirth;
-    public Employees(){
+    public EmployeeEntity(){
     }
-    public Employees(String name,
-                     String surName,
-                     int ID,
-                     String codiceFiscale,
-                     String typeOfWork,
-                     String typeOfContract, String dateOfBirth)
+    public EmployeeEntity(String name,
+                          String surName,
+                          int ID,
+                          String codiceFiscale,
+                          String typeOfWork,
+                          String typeOfContract, String dateOfBirth)
     {
         this.name = name;
         this.surName = surName;
