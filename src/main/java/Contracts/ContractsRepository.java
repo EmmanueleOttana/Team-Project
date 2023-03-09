@@ -15,7 +15,7 @@ public class ContractsRepository {
         this.levelOfContract = levelOfContract;
     }
     /**
-     * Added void method getTypeOfContract for switch
+     * Added Class method getTypeOfContract for switch
      * @param contract of the single employee
      */
 
