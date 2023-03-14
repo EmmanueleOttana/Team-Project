@@ -18,7 +18,7 @@ public class Payroll {
         this.retribuzioneLorda = retribuzioneLorda;
         this.retribuzioneNetta = retribuzioneNetta;
     }
-    Employees employees=new Employees();
+    Employees employees = new Employees();
 
     public boolean isPresenza() {
         return presenza;

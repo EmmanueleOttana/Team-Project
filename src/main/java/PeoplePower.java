@@ -1,3 +1,5 @@
+import HumanResources.Employees;
+
 public class PeoplePower {
     String Agency;
     String descriptionOfApp;
@@ -29,5 +31,9 @@ public class PeoplePower {
     public static void main(String[] args)
     {
 
+
+        Employees user1 = new Employees("Harry","Potter","TTNGKDJ91SGST91I","Mago","Stage","14/04/1991");
+
+        System.out.println(user1.toString());
     }
 }

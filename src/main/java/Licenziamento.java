@@ -1,14 +1,12 @@
-import HumanResources.Employees;
 
 import java.util.Date;
 
-public class Licenziamento extends Employees {
+public class Licenziamento{
     public Date dataLicenziamento;
     public String reasonsOfDismissal;
     public int ExperienceLevel;
 
-    public Licenziamento(String name, String surName, int ID, String codiceFiscale, String typeOfWork, String typeOfContract, String dateOfBirth, Date dataLicenziamento, String reasonsOfDismissal, int experienceLevel) {
-        super(name, surName, ID, codiceFiscale, typeOfWork, typeOfContract, dateOfBirth);
+    public Licenziamento(Date dataLicenziamento, String reasonsOfDismissal, int experienceLevel) {
         this.dataLicenziamento = dataLicenziamento;
         this.reasonsOfDismissal = reasonsOfDismissal;
         ExperienceLevel = experienceLevel;

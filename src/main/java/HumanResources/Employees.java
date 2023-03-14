@@ -9,8 +9,8 @@ public class Employees {
     public String typeOfWork;
     public String typeOfContract;
     public String dateOfBirth;
-    public Employees(){
-    }
+    public Employees(){}
+
     public Employees(String name,
                      String surname,
                      String codiceFiscale,
@@ -72,7 +72,7 @@ public class Employees {
     public String toString() {
         return "Employees{" +
                 "name='" + name + '\'' +
-                ", surName='" + surname + '\'' +
+                ", surname='" + surname + '\'' +
                 ", ID=" + ID +
                 ", CodiceFiscale='" + CodiceFiscale + '\'' +
                 ", typeOfWork='" + typeOfWork + '\'' +

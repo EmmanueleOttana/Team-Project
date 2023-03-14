@@ -1,18 +1,12 @@
 import HumanResources.Employees;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeesDB extends Employees{
+public class EmployeesDB {
     List<Employees> employees = new ArrayList<>();
 
-    public EmployeesDB(){
-
-    }
-
-    public EmployeesDB(String name, String surName, int ID, String codiceFiscale, String typeOfWork, String typeOfContract, String dateOfBirth, List<Employees> employees) {
-        super(name, surName, ID, codiceFiscale, typeOfWork, typeOfContract, dateOfBirth);
+    public EmployeesDB(String name, String surname, int ID, String codiceFiscale, String typeOfWork, String typeOfContract, String dateOfBirth, List<Employees> employees) {
         this.employees = employees;
     }
     public void saveEmployees (Employees employee){
