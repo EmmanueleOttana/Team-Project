@@ -1,13 +1,15 @@
 package employee;
 
+import contracts.TypeOfContract;
+
 public class EmployeeEntity {
     private String name;
     private String surname;
     private int ID;
     private static int totalIdEmployees;
-    private String CodiceFiscale;
+    private String codiceFiscale;
     private String typeOfWork;
-    private String typeOfContract;
+    TypeOfContract typeOfContract;
     private String dateOfBirth;
     public EmployeeService service = new EmployeeService();
 
@@ -15,13 +17,14 @@ public class EmployeeEntity {
                           String surname,
                           String codiceFiscale,
                           String typeOfWork,
-                          String typeOfContract, String dateOfBirth)
+                          TypeOfContract typeOfContract,
+                          String dateOfBirth)
     {
         this.name = name;
         this.surname = surname;
         totalIdEmployees ++;
         this.ID = totalIdEmployees;
-        CodiceFiscale = codiceFiscale;
+        this.codiceFiscale = codiceFiscale;
         this.typeOfWork = typeOfWork;
         this.typeOfContract = typeOfContract;
         this.dateOfBirth = dateOfBirth;
@@ -45,7 +48,7 @@ public class EmployeeEntity {
     }
 
     public String getCodiceFiscale() {
-        return CodiceFiscale;
+        return codiceFiscale;
     }
 
     public String getTypeOfWork() {
@@ -56,11 +59,9 @@ public class EmployeeEntity {
         this.typeOfWork = typeOfWork;
     }
 
-    public String getTypeOfContract() {
-        return typeOfContract;
-    }
+    public String getTypeOfContract() { return typeOfContract.toString(); }
 
-    public void setTypeOfContract(String typeOfContract) {
+    public void setTypeOfContract(TypeOfContract typeOfContract) {
         this.typeOfContract = typeOfContract;
     }
 
@@ -68,5 +69,17 @@ public class EmployeeEntity {
         return dateOfBirth;
     }
 
+    @Override
+    public String toString() {
+        return "Employees{" +
+                "name='" + this.name + '\'' +
+                ", surname='" + this.surname + '\'' +
+                ", ID=" + this.ID +
+                ", CodiceFiscale='" + this.codiceFiscale + '\'' +
+                ", typeOfWork='" + this.typeOfWork + '\'' +
+                ", typeOfContract='" + this.typeOfContract + '\'' +
+                ", dateOfBirth='" + this.dateOfBirth + '\'' +
+                '}';
+    }
 
 }

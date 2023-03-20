@@ -1,0 +1,15 @@
+package contracts;
+
+public enum TypeOfContract {
+    FIXED_TERM,
+    OPEN_ENDED,
+    PART_TIME,
+    FULL_TIME,
+    APPRENTICESHIP,
+    INTERNSHIP,
+    ON_CALL_CONTRACT,
+    OCCASIONAL_PROFESSIONAL_SERVICE,
+    SELF_EMPLOYMENT,
+    TERM_CONTRACT,
+    AGENCY_WORK;
+}

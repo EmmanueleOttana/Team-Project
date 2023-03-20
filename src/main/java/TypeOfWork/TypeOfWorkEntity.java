@@ -11,28 +11,16 @@ public class TypeOfWorkEntity {
         this.transferWork = transferWork;
     }
 
-    public String getManualWork() {
-        return manualWork;
-    }
+    public String getManualWork() { return manualWork; }
 
-    public void setManualWork(String manualWork) {
-        this.manualWork = manualWork;
-    }
+    public void setManualWork(String manualWork) { this.manualWork = manualWork; }
 
-    public String getStaticWork() {
-        return staticWork;
-    }
+    public String getStaticWork() { return staticWork; }
 
-    public void setStaticWork(String staticWork) {
-        this.staticWork = staticWork;
-    }
+    public void setStaticWork(String staticWork) { this.staticWork = staticWork; }
 
-    public String getTransferWork() {
-        return transferWork;
-    }
+    public String getTransferWork() { return transferWork; }
 
-    public void setTransferWork(String transferWork) {
-        this.transferWork = transferWork;
-    }
+    public void setTransferWork(String transferWork) { this.transferWork = transferWork; }
 
 }

@@ -1,26 +1,15 @@
 package contracts;
 
 public class ContractsEntity {
-    public enum Contracts{
-        DETERMINATO,
-        INDETERMINATO,
-        PART_TIME,
-        APPRENDISTATO,
-        STAGE,
-        INTERMITTENTE,
-        PRESTAZIONI_OCCASIONALI,
-        AUSILIARIO,
-        CO_CO_CO,
-        SOMMINISTRAZIONE
-    }
-    public ContractsEntity typeOfContract;
-    public double durationTime;
-    public double wage;
-    public boolean trialPeriod;
-    public boolean internshipAlreadyDone;
-    public int levelOfContract;
+    private ContractsEntity typeOfContract;
+    private double durationTime;
+    private double wage;
+    private boolean trialPeriod;
+    private boolean internshipAlreadyDone;
+    private int levelOfContract;
 
-    public ContractsEntity(double durationTime, double wage, boolean trialPeriod, boolean internshipAlreadyDone, int levelOfContract) {
+    public ContractsEntity(ContractsEntity typeOfContract, double durationTime, double wage, boolean trialPeriod, boolean internshipAlreadyDone, int levelOfContract) {
+        this.typeOfContract = typeOfContract;
         this.durationTime = durationTime;
         this.wage = wage;
         this.trialPeriod = trialPeriod;
