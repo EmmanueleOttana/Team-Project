@@ -1,4 +1,4 @@
-package payroll;
+package Payroll;
 
 public class PayrollRepository {
 }

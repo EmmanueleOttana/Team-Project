@@ -1,4 +1,4 @@
-package payroll;
+package Payroll;
 
 import employee.EmployeeEntity;
 
@@ -12,6 +12,34 @@ public class PayrollEntity {
     public double retribuzioneLorda;
     public double retribuzioneNetta;
 
+
+
+    /** Net salary */
+    private double net;
+    /** IRPEF Tax */
+    private double irpef;
+    /** INPS Tax */
+    private double inps;
+    /** TFR Tax */
+    private double tfr;
+    public void divideAll(int months){
+        this.net /= months;
+        this.irpef /= months;
+        this.inps /= months;
+        this.tfr /= months;
+    }
+
+
+    public void add(PayrollEntity payrollEntity) {
+        this.net += payrollEntity.getNet();
+        this.irpef += payrollEntity.getIrpef();
+        this.inps += payrollEntity.getInps();
+        this.tfr += payrollEntity.getTfr();
+    }
+
+    public PayrollEntity(){
+
+    }
     public PayrollEntity(boolean presenza, int oreAssenze, int oreContratto, int oreEffettuate, double trattenuteStato, double retribuzioneLorda, double retribuzioneNetta) {
         this.presenza = presenza;
         this.oreAssenze = oreAssenze;
@@ -81,5 +109,44 @@ public class PayrollEntity {
     // Metodo per inserire le ore effettuate
     public void setOreEffettuate(int oreEffettuate) {
         this.oreEffettuate = oreEffettuate;
+    }
+    public EmployeeEntity getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(EmployeeEntity employees) {
+        this.employees = employees;
+    }
+
+    public double getNet() {
+        return net;
+    }
+
+    public void setNet(double net) {
+        this.net = net;
+    }
+
+    public double getIrpef() {
+        return irpef;
+    }
+
+    public void setIrpef(double irpef) {
+        this.irpef = irpef;
+    }
+
+    public double getInps() {
+        return inps;
+    }
+
+    public void setInps(double inps) {
+        this.inps = inps;
+    }
+
+    public double getTfr() {
+        return tfr;
+    }
+
+    public void setTfr(double tfr) {
+        this.tfr = tfr;
     }
 }
