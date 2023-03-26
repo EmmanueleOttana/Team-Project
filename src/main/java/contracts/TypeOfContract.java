@@ -21,4 +21,5 @@ public enum TypeOfContract {
         this.displayType = typeOfContract;
     }
 
+
 }

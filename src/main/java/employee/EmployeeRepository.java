@@ -6,9 +6,11 @@ import java.util.List;
 public class EmployeeRepository {
     List<EmployeeEntity> employees = new ArrayList<>();
 
+    public List<EmployeeEntity> getEmployees() { return employees; }
+
     public void saveEmployees (EmployeeEntity employee){
         employees.add(employee);
-        System.out.println(employee.toString());
     }
+
 
 }

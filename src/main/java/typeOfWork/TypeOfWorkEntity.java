@@ -23,4 +23,5 @@ public class TypeOfWorkEntity {
 
     public void setTransferWork(String transferWork) { this.transferWork = transferWork; }
 
+
 }

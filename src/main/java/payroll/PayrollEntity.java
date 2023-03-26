@@ -5,14 +5,15 @@ import employee.EmployeeEntity;
 public class PayrollEntity {
     EmployeeEntity employees;
     public boolean presenza; //presence
-    public int oreAssenze; //absentHours
-    public int oreContratto; //contractHours
-    public int oreEffettuate; //hoursWorked
+    public double oreAssenze; //absentHours
+    public double oreContratto; //contractHours
+    public double oreEffettuate; //hoursWorked
     public double trattenuteStato;
     public double retribuzioneLorda;
     public double retribuzioneNetta;
 
-    public PayrollEntity(boolean presenza, int oreAssenze, int oreContratto, int oreEffettuate, double trattenuteStato, double retribuzioneLorda, double retribuzioneNetta) {
+    public PayrollEntity(EmployeeEntity employee, boolean presenza, double oreAssenze, double oreContratto, double oreEffettuate, double trattenuteStato, double retribuzioneLorda, double retribuzioneNetta) {
+        this.employees = employee;
         this.presenza = presenza;
         this.oreAssenze = oreAssenze;
         this.oreContratto = oreContratto;
@@ -26,15 +27,15 @@ public class PayrollEntity {
         return presenza;
     }
 
-    public int getOreAssenze() {
+    public double getOreAssenze() {
         return oreAssenze;
     }
 
-    public int getOreContratto() {
+    public double getOreContratto() {
         return oreContratto;
     }
 
-    public int getOreEffettuate() {
+    public double getOreEffettuate() {
         return oreEffettuate;
     }
 

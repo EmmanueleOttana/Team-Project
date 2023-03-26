@@ -16,6 +16,7 @@ public class ContractsEntity {
         this.internshipAlreadyDone = internshipAlreadyDone;
         this.levelOfContract = levelOfContract;
     }
+
     public ContractsEntity getTypeOfContract() {
         return typeOfContract;
     }

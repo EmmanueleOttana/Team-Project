@@ -44,4 +44,5 @@ public class AdminEntity {
         this.authorizations = authorizations;
     }
 
+
 }
