@@ -1,6 +1,6 @@
-package employee;
+package Employee;
 
-import contracts.TypeOfContract;
+import Contracts.TypeOfContract;
 
 public class EmployeeEntity {
     private String name;

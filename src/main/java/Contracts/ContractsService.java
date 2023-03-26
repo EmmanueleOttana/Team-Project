@@ -1,6 +1,4 @@
-package contracts;
-
-import static contracts.TypeOfContract.*;
+package Contracts;
 
 public class ContractsService {
     ContractsEntity contractsEntity;

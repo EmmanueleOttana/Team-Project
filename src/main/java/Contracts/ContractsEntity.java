@@ -1,4 +1,4 @@
-package contracts;
+package Contracts;
 
 public class ContractsEntity {
     private ContractsEntity typeOfContract;

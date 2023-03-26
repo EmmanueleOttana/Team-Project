@@ -1,4 +1,4 @@
-package performance;
+package Performance;
 
 public class PerformanceEntity {
     public int rating; //valutazioni

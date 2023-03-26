@@ -1,4 +1,4 @@
-package typeOfWork;
+package TypeOfWork;
 
 public class TypeOfWorkRepository {
 

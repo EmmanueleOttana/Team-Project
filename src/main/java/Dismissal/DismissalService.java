@@ -1,4 +1,4 @@
-package dismissal;
+package Dismissal;
 
 public class DismissalService {
 }

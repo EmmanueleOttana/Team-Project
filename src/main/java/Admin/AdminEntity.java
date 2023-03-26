@@ -1,4 +1,4 @@
-package admin;
+package Admin;
 
 public class AdminEntity {
     public String username;

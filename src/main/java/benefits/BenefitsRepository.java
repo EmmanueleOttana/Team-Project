@@ -1,4 +1,4 @@
-package benefits;
+package Benefits;
 
 public class BenefitsRepository {
 }

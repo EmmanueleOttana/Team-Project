@@ -1,4 +1,4 @@
-package performance;
+package Performance;
 
 public class PerformanceRepository {
 }

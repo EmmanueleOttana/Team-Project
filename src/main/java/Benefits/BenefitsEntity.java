@@ -1,5 +1,5 @@
-package benefits;
-import employee.EmployeeEntity;
+package Benefits;
+import Employee.EmployeeEntity;
 import java.util.List;
 
 public class BenefitsEntity {

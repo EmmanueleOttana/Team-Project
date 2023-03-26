@@ -1,6 +1,6 @@
 package Payroll;
 
-import employee.EmployeeEntity;
+import Employee.EmployeeEntity;
 
 public class PayrollEntity {
     EmployeeEntity employees;

@@ -1,4 +1,4 @@
-package peoplePower;
+package PeoplePower;
 
 public class PeoplePowerEntity {
     private String Agency;

@@ -1,7 +1,4 @@
 package Payroll;
-
-import employee.EmployeeEntity;
-
 public class PayrollService {
     /**
      * Evaluates TFR from salary

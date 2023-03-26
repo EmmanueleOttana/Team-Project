@@ -1,4 +1,4 @@
-package dismissal;
+package Dismissal;
 
 import java.util.Date;
 

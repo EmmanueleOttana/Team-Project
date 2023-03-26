@@ -1,7 +1,7 @@
-package peoplePower;
+package PeoplePower;
 
-import contracts.TypeOfContract;
-import employee.EmployeeEntity;
+import Contracts.TypeOfContract;
+import Employee.EmployeeEntity;
 
 public class PeoplePowerService {
     public static void main(String[] args){

@@ -1,4 +1,4 @@
-package contracts;
+package Contracts;
 
 public enum TypeOfContract {
     AGENCY_WORK("Contratto a somministrazione"),

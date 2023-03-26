@@ -1,4 +1,4 @@
-package typeOfWork;
+package TypeOfWork;
 
 public class TypeOfWorkEntity {
     public String manualWork;
