@@ -1,0 +1,11 @@
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/nome_database</property>
+        <property name="hibernate.connection.username">nome_utente</property>
+        <property name="hibernate.connection.password">password_utente</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    </session-factory>
+</hibernate-configuration>
+
+<!-- In questo file bisogna cambiare con i dati del Database -->
