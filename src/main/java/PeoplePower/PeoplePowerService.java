@@ -15,7 +15,5 @@ public class PeoplePowerService {
         System.out.println(emplRepo.getEmployees());
 
 
-
-
     }
 }
