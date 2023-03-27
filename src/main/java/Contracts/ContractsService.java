@@ -1,6 +1,6 @@
-package Contracts;
+package contracts;
 
 public class ContractsService {
-    ContractsEntity contractsEntity;
+
 
 }

@@ -1,4 +1,4 @@
-package Performance;
+package performance;
 
 public class PerformanceEntity {
     public int rating; //valutazioni
@@ -35,4 +35,6 @@ public class PerformanceEntity {
     public void addComment(String comment) {}
     public void updatePerformance(){};
     public void getPerformance(){};
+
+
 }

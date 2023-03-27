@@ -1,6 +1,8 @@
-package Employee;
+package employee;
 
-import Contracts.TypeOfContract;
+import contracts.TypeOfContract;
+
+import java.time.LocalDate;
 
 public class EmployeeEntity {
     private String name;
@@ -10,8 +12,7 @@ public class EmployeeEntity {
     private String codiceFiscale;
     private String typeOfWork;
     TypeOfContract typeOfContract;
-    private String dateOfBirth;
-    public EmployeeService service = new EmployeeService();
+    private LocalDate dateOfBirth;
 
     public EmployeeEntity(String name,
                           String surname,
@@ -27,7 +28,7 @@ public class EmployeeEntity {
         this.codiceFiscale = codiceFiscale;
         this.typeOfWork = typeOfWork;
         this.typeOfContract = typeOfContract;
-        this.dateOfBirth = dateOfBirth;
+        this.dateOfBirth = LocalDate.parse(dateOfBirth);
     }
 
 
@@ -65,7 +66,7 @@ public class EmployeeEntity {
         this.typeOfContract = typeOfContract;
     }
 
-    public String getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 

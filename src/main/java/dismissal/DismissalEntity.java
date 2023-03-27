@@ -1,24 +1,24 @@
-package Dismissal;
+package dismissal;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class DismissalEntity {
-    public Date dataLicenziamento;
+    public LocalDate dataLicenziamento;
     public String reasonsOfDismissal;
     public int ExperienceLevel;
 
-    public DismissalEntity(Date dataLicenziamento, String reasonsOfDismissal, int experienceLevel) {
-        this.dataLicenziamento = dataLicenziamento;
+    public DismissalEntity(String dataLicenziamento, String reasonsOfDismissal, int experienceLevel) {
+        this.dataLicenziamento = LocalDate.parse(dataLicenziamento);
         this.reasonsOfDismissal = reasonsOfDismissal;
         ExperienceLevel = experienceLevel;
     }
 
-    public Date getDataLicenziamento() {
+    public LocalDate getDataLicenziamento() {
         return dataLicenziamento;
     }
 
-    public void setDataLicenziamento(Date dataLicenziamento) {
-        this.dataLicenziamento = dataLicenziamento;
+    public void setDataLicenziamento(String dataLicenziamento) {
+        this.dataLicenziamento = LocalDate.parse(dataLicenziamento);
     }
 
     public String getReasonsOfDismissal() {

@@ -1,4 +1,4 @@
-package Contracts;
+package contracts;
 
 public class ContractsEntity {
     private ContractsEntity typeOfContract;
@@ -16,6 +16,7 @@ public class ContractsEntity {
         this.internshipAlreadyDone = internshipAlreadyDone;
         this.levelOfContract = levelOfContract;
     }
+
     public ContractsEntity getTypeOfContract() {
         return typeOfContract;
     }

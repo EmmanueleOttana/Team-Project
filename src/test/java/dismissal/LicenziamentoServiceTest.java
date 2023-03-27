@@ -1,4 +1,4 @@
-package Dismissal;
+package dismissal;
 
 public class LicenziamentoServiceTest {
 }

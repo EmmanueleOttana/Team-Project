@@ -1,4 +1,5 @@
-package PeoplePower;
+package peoplePower;
 
 public class PeoplePowerRepository {
+
 }

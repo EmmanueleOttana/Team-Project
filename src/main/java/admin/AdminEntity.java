@@ -1,4 +1,4 @@
-package Admin;
+package admin;
 
 public class AdminEntity {
     public String username;
@@ -43,5 +43,6 @@ public class AdminEntity {
     public void setAuthorizations(String authorizations) {
         this.authorizations = authorizations;
     }
+
 
 }

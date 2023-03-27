@@ -1,4 +1,4 @@
-package PeoplePower;
+package peoplePower;
 
 public class PeoplePowerEntity {
     private String Agency;
@@ -28,6 +28,7 @@ public class PeoplePowerEntity {
     public void setNationalContract(String nationalContract) {
         NationalContract = nationalContract;
     }
+
 
 
 }

@@ -1,46 +1,19 @@
-package Payroll;
+package payroll;
 
-import Employee.EmployeeEntity;
+import employee.EmployeeEntity;
 
 public class PayrollEntity {
     EmployeeEntity employees;
     public boolean presenza; //presence
-    public int oreAssenze; //absentHours
-    public int oreContratto; //contractHours
-    public int oreEffettuate; //hoursWorked
+    public double oreAssenze; //absentHours
+    public double oreContratto; //contractHours
+    public double oreEffettuate; //hoursWorked
     public double trattenuteStato;
     public double retribuzioneLorda;
     public double retribuzioneNetta;
 
-
-
-    /** Net salary */
-    private double net;
-    /** IRPEF Tax */
-    private double irpef;
-    /** INPS Tax */
-    private double inps;
-    /** TFR Tax */
-    private double tfr;
-    public void divideAll(int months){
-        this.net /= months;
-        this.irpef /= months;
-        this.inps /= months;
-        this.tfr /= months;
-    }
-
-
-    public void add(PayrollEntity payrollEntity) {
-        this.net += payrollEntity.getNet();
-        this.irpef += payrollEntity.getIrpef();
-        this.inps += payrollEntity.getInps();
-        this.tfr += payrollEntity.getTfr();
-    }
-
-    public PayrollEntity(){
-
-    }
-    public PayrollEntity(boolean presenza, int oreAssenze, int oreContratto, int oreEffettuate, double trattenuteStato, double retribuzioneLorda, double retribuzioneNetta) {
+    public PayrollEntity(EmployeeEntity employee, boolean presenza, double oreAssenze, double oreContratto, double oreEffettuate, double trattenuteStato, double retribuzioneLorda, double retribuzioneNetta) {
+        this.employees = employee;
         this.presenza = presenza;
         this.oreAssenze = oreAssenze;
         this.oreContratto = oreContratto;
@@ -54,15 +27,15 @@ public class PayrollEntity {
         return presenza;
     }
 
-    public int getOreAssenze() {
+    public double getOreAssenze() {
         return oreAssenze;
     }
 
-    public int getOreContratto() {
+    public double getOreContratto() {
         return oreContratto;
     }
 
-    public int getOreEffettuate() {
+    public double getOreEffettuate() {
         return oreEffettuate;
     }
 
@@ -109,44 +82,5 @@ public class PayrollEntity {
     // Metodo per inserire le ore effettuate
     public void setOreEffettuate(int oreEffettuate) {
         this.oreEffettuate = oreEffettuate;
-    }
-    public EmployeeEntity getEmployees() {
-        return employees;
-    }
-
-    public void setEmployees(EmployeeEntity employees) {
-        this.employees = employees;
-    }
-
-    public double getNet() {
-        return net;
-    }
-
-    public void setNet(double net) {
-        this.net = net;
-    }
-
-    public double getIrpef() {
-        return irpef;
-    }
-
-    public void setIrpef(double irpef) {
-        this.irpef = irpef;
-    }
-
-    public double getInps() {
-        return inps;
-    }
-
-    public void setInps(double inps) {
-        this.inps = inps;
-    }
-
-    public double getTfr() {
-        return tfr;
-    }
-
-    public void setTfr(double tfr) {
-        this.tfr = tfr;
     }
 }

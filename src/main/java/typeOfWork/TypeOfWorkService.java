@@ -1,5 +1,6 @@
-package TypeOfWork;
+package typeOfWork;
 
 public class TypeOfWorkService {
+
 
 }

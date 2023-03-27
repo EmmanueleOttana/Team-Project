@@ -1,4 +1,4 @@
-package TypeOfWork;
+package typeOfWork;
 
 public class TypeOfWorkEntity {
     public String manualWork;
@@ -22,5 +22,6 @@ public class TypeOfWorkEntity {
     public String getTransferWork() { return transferWork; }
 
     public void setTransferWork(String transferWork) { this.transferWork = transferWork; }
+
 
 }

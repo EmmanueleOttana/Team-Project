@@ -1,4 +1,4 @@
-package Contracts;
+package contracts;
 
 public enum TypeOfContract {
     AGENCY_WORK("Contratto a somministrazione"),
@@ -20,5 +20,6 @@ public enum TypeOfContract {
     TypeOfContract(String typeOfContract) {
         this.displayType = typeOfContract;
     }
+
 
 }
