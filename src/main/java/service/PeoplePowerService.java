@@ -1,17 +1,30 @@
 package service;
 
+import entity.EmployeeEntity;
 import repository.TypeOfContract;
 import repository.EmployeeRepository;
 
 public class PeoplePowerService {
     public static void main(String[] args) {
-        EmployeeRepository emplRepo = new EmployeeRepository();
-        EmployeeService emplService = new EmployeeService(emplRepo);
+        EmployeeEntity userFake = new EmployeeEntity("User", "Fake", "USEFAK80L31E098E", "Programmatore", TypeOfContract.OPEN_ENDED, "1991-04-14");
 
-        emplService.registerEmployee("Harry", "Potter", "PTTHRY80L31E098E", "Programmatore", TypeOfContract.OPEN_ENDED, "1980-07-31");
-        emplService.registerEmployee("Hermione", "Granger", "GRNHMN79P59F158S", "Professoressa", TypeOfContract.AGENCY_WORK, "1979-09-19");
+        EmployeeService emplFake = new EmployeeService(userFake);
 
-        System.out.println(emplRepo.getEmployees());
+        emplFake.registerEmployee("Harry", "Potter", "PTTHRY80L31E098E", "Programmatore", TypeOfContract.OPEN_ENDED, "1980-07-31");
+        emplFake.registerEmployee("Hermione", "Granger", "GRNHMN79P59F158S", "Professoressa", TypeOfContract.AGENCY_WORK, "1979-09-19");
+        EmployeeRepository.saveEmployees(userFake);
+
+
+        emplFake.badge();
+        System.out.println();
+        emplFake.badge();
+        System.out.println();
+        emplFake.badge();
+        System.out.println();
+        emplFake.badge();
+
+        System.out.println(EmployeeRepository.employees);
+        System.out.println(EmployeeRepository.printHoursEmployees());
 
 
     }

@@ -1,8 +1,11 @@
 package entity;
 
+import repository.EmployeeRepository;
 import repository.TypeOfContract;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class EmployeeEntity {
     private String name;
@@ -11,8 +14,10 @@ public class EmployeeEntity {
     private static int totalIdEmployees;
     private String codiceFiscale;
     private String typeOfWork;
-    TypeOfContract typeOfContract;
-    private LocalDate dateOfBirth;
+    private TypeOfContract typeOfContract;
+    private final LocalDate dateOfBirth;
+    private LocalTime workHours; //ore di lavoro giornaliero
+    private LocalDateTime accessBadge;
 
     public EmployeeEntity(String name,
                           String surname,
@@ -70,16 +75,35 @@ public class EmployeeEntity {
         return dateOfBirth;
     }
 
+    public LocalDateTime getAccessBadge() { return accessBadge; }
+
+    public void setAccessBadge(LocalDateTime accessBadge) { this.accessBadge = accessBadge; }
+
+    public LocalTime getWorkHours() { return workHours; }
+
+    public void setWorkHours(int workMinutes) {
+        if(workMinutes >= 60) {
+            int hours = workMinutes / 60;
+            int minutes = workMinutes % 60;
+            this.workHours = LocalTime.of(hours,minutes);
+        }else {
+            this.workHours = LocalTime.of(0,workMinutes);
+        }
+    }
+
+    public void resetAccess(){ this.accessBadge = null; this.workHours = null; }
+
     @Override
     public String toString() {
         return "Employees{" +
-                "name='" + this.name + '\'' +
-                ", surname='" + this.surname + '\'' +
-                ", ID=" + this.ID +
-                ", CodiceFiscale='" + this.codiceFiscale + '\'' +
-                ", typeOfWork='" + this.typeOfWork + '\'' +
-                ", typeOfContract='" + this.typeOfContract + '\'' +
-                ", dateOfBirth='" + this.dateOfBirth + '\'' +
+                "name= " + this.name +
+                ", surname= " + this.surname +
+                ", ID= " + this.ID +
+                ", CodiceFiscale= " + this.codiceFiscale +
+                ", typeOfWork= " + this.typeOfWork +
+                ", typeOfContract= " + this.typeOfContract +
+                ", dateOfBirth= " + this.dateOfBirth +
+                ", isAtWork?= " + (this.accessBadge != null) +
                 '}';
     }
 
