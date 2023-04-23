@@ -1,5 +1,5 @@
 package repository;
 
-public class BenefitsRepository {
+public interface BenefitsRepository {
 
 }

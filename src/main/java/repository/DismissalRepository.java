@@ -1,5 +1,5 @@
 package repository;
 
-public class DismissalRepository {
+public interface DismissalRepository {
 
 }

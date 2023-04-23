@@ -1,5 +1,5 @@
 package repository;
 
-public class PerformanceRepository {
+public interface PerformanceRepository {
 
 }

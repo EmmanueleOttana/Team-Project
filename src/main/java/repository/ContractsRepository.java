@@ -1,6 +1,6 @@
 package repository;
 
-public class ContractsRepository {
+public interface ContractsRepository {
 
 
 }

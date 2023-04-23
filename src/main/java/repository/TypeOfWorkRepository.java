@@ -1,6 +1,6 @@
 package repository;
 
-public class TypeOfWorkRepository {
+public interface TypeOfWorkRepository {
 
 
 }
