@@ -1,6 +1,13 @@
 package entity;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table
 public class ContractsEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
     private ContractsEntity typeOfContract;
     private double durationTime;
     private double wage;
@@ -8,13 +15,21 @@ public class ContractsEntity {
     private boolean internshipAlreadyDone;
     private int levelOfContract;
 
-    public ContractsEntity(ContractsEntity typeOfContract, double durationTime, double wage, boolean trialPeriod, boolean internshipAlreadyDone, int levelOfContract) {
+    public ContractsEntity(long id,ContractsEntity typeOfContract, double durationTime, double wage, boolean trialPeriod, boolean internshipAlreadyDone, int levelOfContract) {
+        this.id = id;
         this.typeOfContract = typeOfContract;
         this.durationTime = durationTime;
         this.wage = wage;
         this.trialPeriod = trialPeriod;
         this.internshipAlreadyDone = internshipAlreadyDone;
         this.levelOfContract = levelOfContract;
+    }
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public ContractsEntity getTypeOfContract() {

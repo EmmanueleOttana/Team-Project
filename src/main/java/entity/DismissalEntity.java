@@ -1,16 +1,30 @@
 package entity;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
-
+@Entity
+@Table
 public class DismissalEntity {
-    public LocalDate dataLicenziamento;
-    public String reasonsOfDismissal;
-    public int ExperienceLevel;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+    private LocalDate dataLicenziamento;
+    private String reasonsOfDismissal;
+    private int ExperienceLevel;
 
-    public DismissalEntity(String dataLicenziamento, String reasonsOfDismissal, int experienceLevel) {
+    public DismissalEntity(long id,String dataLicenziamento, String reasonsOfDismissal, int experienceLevel) {
+        this.id=id;
         this.dataLicenziamento = LocalDate.parse(dataLicenziamento);
         this.reasonsOfDismissal = reasonsOfDismissal;
         ExperienceLevel = experienceLevel;
+    }
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public LocalDate getDataLicenziamento() {

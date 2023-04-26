@@ -1,16 +1,20 @@
 package entity;
 
-import repository.EmployeeRepository;
+import jakarta.persistence.*;
 import repository.TypeOfContract;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+@Entity
+@Table
 public class EmployeeEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
     private String name;
     private String surname;
-    private int ID;
     private static int totalIdEmployees;
     private String codiceFiscale;
     private String typeOfWork;
@@ -29,7 +33,7 @@ public class EmployeeEntity {
         this.name = name;
         this.surname = surname;
         totalIdEmployees ++;
-        this.ID = totalIdEmployees;
+        this.id = totalIdEmployees;
         this.codiceFiscale = codiceFiscale;
         this.typeOfWork = typeOfWork;
         this.typeOfContract = typeOfContract;
@@ -45,12 +49,12 @@ public class EmployeeEntity {
         return surname;
     }
 
-    public int getID() {
-        return ID;
+    public long getId() {
+        return id;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getCodiceFiscale() {
@@ -98,7 +102,7 @@ public class EmployeeEntity {
         return "Employees{" +
                 "name= " + this.name +
                 ", surname= " + this.surname +
-                ", ID= " + this.ID +
+                ", ID= " + this.id +
                 ", CodiceFiscale= " + this.codiceFiscale +
                 ", typeOfWork= " + this.typeOfWork +
                 ", typeOfContract= " + this.typeOfContract +

@@ -1,18 +1,33 @@
 package entity;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table
 public class PerformanceEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
     public int rating; //valutazioni
     public String review; //commenti
     public int productivityLevel;
     public int skillLevel;
     public int promotions;
 
-    public PerformanceEntity(int rating, String review, int productivityLevel, int skillLevel, int promotions) {
+    public PerformanceEntity(long id,int rating, String review, int productivityLevel, int skillLevel, int promotions) {
+        this.id=id;
         this.rating = rating;
         this.review = review;
         this.productivityLevel = productivityLevel;
         this.skillLevel = skillLevel;
         this.promotions = promotions;
+    }
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
     public int getRating() {
         return rating;

@@ -25,11 +25,11 @@ public class EmployeeService {
 
         EmployeeEntity employee = new EmployeeEntity(name,surname,codiceFiscale,typeOfWork,typeOfContract,dateOfBirth);
         EmployeeRepository.saveEmployees(employee);
-        System.out.println("L'utente " + surname+name+employee.getID() + " è stato registrato!");
+        System.out.println("L'utente " + surname+name+employee.getId() + " è stato registrato!");
     }
     public void resetBadge() {
         String valueKey = LocalDate.of(employee.getAccessBadge().getYear(), employee.getAccessBadge().getMonthValue(), employee.getAccessBadge().getDayOfMonth()) + " " +
-                employee.getSurname() + employee.getName() + employee.getID();
+                employee.getSurname() + employee.getName() + employee.getId();
 
         if (!EmployeeRepository.workingHours.containsKey(valueKey)) {
             EmployeeRepository.workingHours.put(valueKey, employee.getWorkHours());

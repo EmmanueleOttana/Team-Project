@@ -1,14 +1,29 @@
 package entity;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table
 public class PeoplePowerEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
     private String Agency;
     private String descriptionOfApp;
     private String NationalContract;
 
-    public PeoplePowerEntity(String agency, String descriptionOfApp, String nationalContract){
+    public PeoplePowerEntity(long id,String agency, String descriptionOfApp, String nationalContract){
+        this.id=id;
         this.Agency = agency;
         this.descriptionOfApp = descriptionOfApp;
         this.NationalContract = nationalContract;
+    }
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
     public String getAgency() {
         return Agency;

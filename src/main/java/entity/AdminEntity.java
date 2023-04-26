@@ -1,16 +1,34 @@
 package entity;
 
-public class AdminEntity {
-    public String username;
-    public String password;
-    public String role;
-    public String authorizations;
+import jakarta.persistence.*;
 
-    public AdminEntity(String username, String password, String role, String authorizations) {
+@Entity
+@Table
+public class AdminEntity {
+
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+
+    private String username;
+    private String password;
+    private String role;
+    private String authorizations;
+
+    public AdminEntity(long id,String username, String password, String role, String authorizations) {
+        this.id = id;
         this.username = username;
         this.password = password;
         this.role = role;
         this.authorizations = authorizations;
+    }
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
     public String getUsername() {
         return username;

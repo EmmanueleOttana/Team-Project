@@ -1,6 +1,8 @@
 package repository;
 
 import entity.EmployeeEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -8,7 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public interface EmployeeRepository {
+@RepositoryRestResource
+public interface EmployeeRepository extends JpaRepository<EmployeeEntity,Long> {
     List<EmployeeEntity> employees = new ArrayList<>();
     Map<String, LocalTime> workingHours = new HashMap<>();
 
