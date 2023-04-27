@@ -8,8 +8,11 @@ public class PeoplePower {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    @Column
     private String Agency;
+    @Column
     private String descriptionOfApp;
+    @Column
     private String NationalContract;
 
     public PeoplePower(long id, String agency, String descriptionOfApp, String nationalContract){

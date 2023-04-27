@@ -10,10 +10,13 @@ public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
+    @Column
     private String username;
+    @Column
     private String password;
+    @Column
     private String role;
+    @Column
     private String authorizations;
 
     public Admin(){

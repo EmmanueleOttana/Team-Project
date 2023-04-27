@@ -8,10 +8,15 @@ public class Performance {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    @Column
     public int rating; //valutazioni
+    @Column
     public String review; //commenti
+    @Column
     public int productivityLevel;
+    @Column
     public int skillLevel;
+    @Column
     public int promotions;
 
     public Performance(long id, int rating, String review, int productivityLevel, int skillLevel, int promotions) {

@@ -11,9 +11,13 @@ public class Benefits {
     private long id;
     @ManyToOne
     private Employee employee;
+    @Column
     public int infortuni;
+    @Column
     public int giorniMalattia;
+    @Column
     public int ferie;
+    @Column
     public double premiProduzione;
     List<String> beneficiMaterialiAziendali;
 

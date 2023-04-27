@@ -14,14 +14,23 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @Column
     private String name;
+    @Column
     private String surname;
+    @Column
     private static int totalIdEmployees;
+    @Column
     private String codiceFiscale;
+    @Column
     private String typeOfWork;
+    @ManyToOne
     private TypeOfContract typeOfContract;
+    @Column
     private LocalDate dateOfBirth;
+    @Column
     private LocalTime workHours; //ore di lavoro giornaliero
+    @Column
     private LocalDateTime accessBadge;
 
     public Employee(String name,

@@ -8,8 +8,11 @@ public class TypeOfWork {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    @Column
     private String manualWork;
+    @Column
     private String staticWork;
+    @Column
     private String transferWork;
 
     public TypeOfWork(long id, String manualWork, String staticWork, String transferWork) {

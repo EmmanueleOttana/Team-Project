@@ -9,8 +9,11 @@ public class Dismissal {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    @Column
     private LocalDate dataLicenziamento;
+    @Column
     private String reasonsOfDismissal;
+    @Column
     private int ExperienceLevel;
 
     public Dismissal(long id, String dataLicenziamento, String reasonsOfDismissal, int experienceLevel) {

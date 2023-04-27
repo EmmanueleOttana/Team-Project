@@ -8,11 +8,17 @@ public class Contracts {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    @ManyToOne
     private Contracts typeOfContract;
+    @Column
     private double durationTime;
+    @Column
     private double wage;
+    @Column
     private boolean trialPeriod;
+    @Column
     private boolean internshipAlreadyDone;
+    @Column
     private int levelOfContract;
 
     public Contracts(long id, Contracts typeOfContract, double durationTime, double wage, boolean trialPeriod, boolean internshipAlreadyDone, int levelOfContract) {

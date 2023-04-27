@@ -8,13 +8,21 @@ public class Payroll {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    @ManyToOne
     private Employee employees;
+    @Column
     private boolean presenza; //presence
+    @Column
     private double oreAssenze; //absentHours
+    @Column
     private double oreContratto; //contractHours
+    @Column
     private double oreEffettuate; //hoursWorked
+    @Column
     private double trattenuteStato;
+    @Column
     private double retribuzioneLorda;
+    @Column
     private double retribuzioneNetta;
 
     public Payroll(long id, Employee employee, boolean presenza, double oreAssenze, double oreContratto, double oreEffettuate, double trattenuteStato, double retribuzioneLorda, double retribuzioneNetta) {

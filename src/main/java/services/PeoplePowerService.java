@@ -5,7 +5,7 @@ import repositories.TypeOfContract;
 import repositories.EmployeeRepository;
 
 public class PeoplePowerService {
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         Employee userFake = new Employee("User", "Fake", "USEFAK80L31E098E", "Programmatore", TypeOfContract.OPEN_ENDED, "1991-04-14");
 
         EmployeeService emplFake = new EmployeeService(userFake);
@@ -27,5 +27,5 @@ public class PeoplePowerService {
         System.out.println(EmployeeRepository.printHoursEmployees());
 
 
-    }
+    }*/
 }
