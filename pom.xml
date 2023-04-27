@@ -14,7 +14,7 @@
     <name>Team-4-Project</name>
     <description>Demo for Project Team 4</description>
     <properties>
-        <java.version>20</java.version>
+        <java.version>17</java.version>
     </properties>
     <dependencies>
         <dependency>

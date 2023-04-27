@@ -24,6 +24,9 @@ public class Contracts {
         this.internshipAlreadyDone = internshipAlreadyDone;
         this.levelOfContract = levelOfContract;
     }
+    public Contracts(){
+
+    }
     public long getId() {
         return id;
     }

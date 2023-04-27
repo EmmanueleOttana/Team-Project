@@ -20,7 +20,7 @@ public class Employee {
     private String codiceFiscale;
     private String typeOfWork;
     private TypeOfContract typeOfContract;
-    private final LocalDate dateOfBirth;
+    private LocalDate dateOfBirth;
     private LocalTime workHours; //ore di lavoro giornaliero
     private LocalDateTime accessBadge;
 
@@ -39,6 +39,9 @@ public class Employee {
         this.typeOfWork = typeOfWork;
         this.typeOfContract = typeOfContract;
         this.dateOfBirth = LocalDate.parse(dateOfBirth);
+    }
+    public Employee(){
+
     }
 
 

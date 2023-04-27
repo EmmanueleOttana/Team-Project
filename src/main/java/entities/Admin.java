@@ -16,6 +16,10 @@ public class Admin {
     private String role;
     private String authorizations;
 
+    public Admin(){
+
+    }
+
     public Admin(long id, String username, String password, String role, String authorizations) {
         this.id = id;
         this.username = username;

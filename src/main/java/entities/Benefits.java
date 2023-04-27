@@ -26,6 +26,9 @@ public class Benefits {
         this.premiProduzione = premiProduzione;
         this.beneficiMaterialiAziendali = beneficiMaterialiAziendali;
     }
+    public Benefits(){
+
+    }
     public long getId() {
         return id;
     }

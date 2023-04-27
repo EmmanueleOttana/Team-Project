@@ -22,6 +22,9 @@ public class Performance {
         this.skillLevel = skillLevel;
         this.promotions = promotions;
     }
+    public Performance(){
+
+    }
     public long getId() {
         return id;
     }

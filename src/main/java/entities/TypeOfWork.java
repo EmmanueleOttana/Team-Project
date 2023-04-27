@@ -18,6 +18,9 @@ public class TypeOfWork {
         this.staticWork = staticWork;
         this.transferWork = transferWork;
     }
+    public TypeOfWork(){
+
+    }
 
     public long getId() {
         return id;

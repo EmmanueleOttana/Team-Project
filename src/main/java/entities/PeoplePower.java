@@ -18,6 +18,9 @@ public class PeoplePower {
         this.descriptionOfApp = descriptionOfApp;
         this.NationalContract = nationalContract;
     }
+    public PeoplePower(){
+
+    }
     public long getId() {
         return id;
     }

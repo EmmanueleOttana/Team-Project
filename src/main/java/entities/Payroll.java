@@ -28,6 +28,9 @@ public class Payroll {
         this.retribuzioneLorda = retribuzioneLorda;
         this.retribuzioneNetta = retribuzioneNetta;
     }
+    public Payroll(){
+
+    }
 
     public long getId() {
         return id;

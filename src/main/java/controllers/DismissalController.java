@@ -7,6 +7,8 @@ import repositories.DismissalRepository;
 
 import java.util.List;
 
+@RestController
+@RequestMapping("/dismissal")
 public class DismissalController {
     private final DismissalRepository repository;
 

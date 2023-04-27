@@ -19,6 +19,9 @@ public class Dismissal {
         this.reasonsOfDismissal = reasonsOfDismissal;
         ExperienceLevel = experienceLevel;
     }
+    public Dismissal(){
+
+    }
     public long getId() {
         return id;
     }
