@@ -20,6 +20,9 @@ public class Contracts {
     private boolean internshipAlreadyDone;
     @Column
     private int levelOfContract;
+    @Column
+    private int hoursContract;
+
 
     public Contracts(long id, Contracts typeOfContract, double durationTime, double wage, boolean trialPeriod, boolean internshipAlreadyDone, int levelOfContract) {
         this.id = id;
@@ -88,5 +91,11 @@ public class Contracts {
         this.levelOfContract = levelOfContract;
     }
 
+    public int getHoursContract() {
+        return hoursContract;
+    }
 
+    public void setHoursContract(int hoursContract) {
+        this.hoursContract = hoursContract;
+    }
 }

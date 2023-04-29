@@ -1,5 +1,11 @@
 package start.services;
 
-public class BenefitsService {
+import start.entities.Benefits;
 
+public class BenefitsService {
+    public Benefits benefits;
+    public String calculateTotalBenefits(){
+        return benefits.getAwardsProduction()
+                +" "+ benefits.getBenefitsCorporateMaterials();
+    }
 }

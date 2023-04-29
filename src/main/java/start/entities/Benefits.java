@@ -19,18 +19,18 @@ public class Benefits {
     @Column
     private int ferie;
     @Column
-    private double premiProduzione;
+    private double awardsProduction;
 
-    private List<String> beneficiMaterialiAziendali = new ArrayList<>();
+    private List<String> benefitsCorporateMaterials = new ArrayList<>();
 
-    public Benefits(long id, Employee employee, int infortuni, int giorniMalattia, int ferie, double premiProduzione, List<String> beneficiMaterialiAziendali) {
+    public Benefits(long id, Employee employee, int infortuni, int giorniMalattia, int ferie, double awardsProduction, List<String> benefitsCorporateMaterials) {
         this.id = id;
         this.employee = employee;
         this.infortuni = infortuni;
         this.giorniMalattia = giorniMalattia;
         this.ferie = ferie;
-        this.premiProduzione = premiProduzione;
-        this.beneficiMaterialiAziendali = beneficiMaterialiAziendali;
+        this.awardsProduction = awardsProduction;
+        this.benefitsCorporateMaterials = benefitsCorporateMaterials;
     }
     public Benefits(){}
 
@@ -66,20 +66,20 @@ public class Benefits {
             this.ferie = ferie;
         }
 
-        public double getPremiProduzione () {
-            return premiProduzione;
+        public double getAwardsProduction() {
+            return awardsProduction;
         }
 
-        public void setPremiProduzione ( double premiProduzione){
-            this.premiProduzione = premiProduzione;
+        public void setAwardsProduction(double awardsProduction){
+            this.awardsProduction = awardsProduction;
         }
 
-        public List<String> getBeneficiMaterialiAziendali () {
-            return beneficiMaterialiAziendali;
+        public List<String> getBenefitsCorporateMaterials() {
+            return benefitsCorporateMaterials;
         }
 
-        public void setBeneficiMaterialiAziendali (List < String > beneficiMaterialiAziendali) {
-            this.beneficiMaterialiAziendali = beneficiMaterialiAziendali;
+        public void setBenefitsCorporateMaterials(List < String > benefitsCorporateMaterials) {
+            this.benefitsCorporateMaterials = benefitsCorporateMaterials;
         }
 
 
