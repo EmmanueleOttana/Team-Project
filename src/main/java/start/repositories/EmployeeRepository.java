@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.stereotype.Repository;
 
-@RepositoryRestResource
+@Repository
 public interface EmployeeRepository extends JpaRepository<Employee,Long> {
     List<Employee> employees = new ArrayList<>();
     Map<String, LocalTime> workingHours = new HashMap<>();
