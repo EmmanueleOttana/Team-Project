@@ -1,31 +1,14 @@
-package start.entities;
+package entity;
 
-import jakarta.persistence.*;
-
-@Entity
-@Table
-public class Contracts {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-    @ManyToOne
-    private Contracts typeOfContract;
-    @Column
+public class ContractsEntity {
+    private ContractsEntity typeOfContract;
     private double durationTime;
-    @Column
     private double wage;
-    @Column
     private boolean trialPeriod;
-    @Column
     private boolean internshipAlreadyDone;
-    @Column
     private int levelOfContract;
-    @Column
-    private int hoursContract;
 
-
-    public Contracts(long id, Contracts typeOfContract, double durationTime, double wage, boolean trialPeriod, boolean internshipAlreadyDone, int levelOfContract) {
-        this.id = id;
+    public ContractsEntity(ContractsEntity typeOfContract, double durationTime, double wage, boolean trialPeriod, boolean internshipAlreadyDone, int levelOfContract) {
         this.typeOfContract = typeOfContract;
         this.durationTime = durationTime;
         this.wage = wage;
@@ -33,21 +16,12 @@ public class Contracts {
         this.internshipAlreadyDone = internshipAlreadyDone;
         this.levelOfContract = levelOfContract;
     }
-    public Contracts(){}
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public Contracts getTypeOfContract() {
+    public ContractsEntity getTypeOfContract() {
         return typeOfContract;
     }
 
-    public void setTypeOfContract(Contracts typeOfContract) {
+    public void setTypeOfContract(ContractsEntity typeOfContract) {
         this.typeOfContract = typeOfContract;
     }
 
@@ -91,11 +65,5 @@ public class Contracts {
         this.levelOfContract = levelOfContract;
     }
 
-    public int getHoursContract() {
-        return hoursContract;
-    }
 
-    public void setHoursContract(int hoursContract) {
-        this.hoursContract = hoursContract;
-    }
 }
