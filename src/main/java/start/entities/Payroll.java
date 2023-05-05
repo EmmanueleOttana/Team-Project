@@ -1,16 +1,32 @@
-package entity;
+package start.entities;
 
-public class PayrollEntity {
-    EmployeeEntity employees;
-    public boolean presenza; //presence
-    public double oreAssenze; //absentHours
-    public double oreContratto; //contractHours
-    public double oreEffettuate; //hoursWorked
-    public double trattenuteStato;
-    public double retribuzioneLorda;
-    public double retribuzioneNetta;
+import jakarta.persistence.*;
 
-    public PayrollEntity(EmployeeEntity employee, boolean presenza, double oreAssenze, double oreContratto, double oreEffettuate, double trattenuteStato, double retribuzioneLorda, double retribuzioneNetta) {
+@Entity
+@Table
+public class Payroll {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+    @ManyToOne
+    private Employee employees;
+    @Column
+    private boolean presenza; //presence
+    @Column
+    private double oreAssenze; //absentHours
+    @Column
+    private double oreContratto; //contractHours
+    @Column
+    private double oreEffettuate; //hoursWorked
+    @Column
+    private double trattenuteStato;
+    @Column
+    private double retribuzioneLorda;
+    @Column
+    private double retribuzioneNetta;
+
+    public Payroll(long id, Employee employee, boolean presenza, double oreAssenze, double oreContratto, double oreEffettuate, double trattenuteStato, double retribuzioneLorda, double retribuzioneNetta) {
+        this.id=id;
         this.employees = employee;
         this.presenza = presenza;
         this.oreAssenze = oreAssenze;
@@ -19,6 +35,15 @@ public class PayrollEntity {
         this.trattenuteStato = trattenuteStato;
         this.retribuzioneLorda = retribuzioneLorda;
         this.retribuzioneNetta = retribuzioneNetta;
+    }
+    public Payroll(){}
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public boolean isPresenza() {

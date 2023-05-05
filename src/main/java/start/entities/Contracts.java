@@ -1,14 +1,31 @@
-package entity;
+package start.entities;
 
-public class ContractsEntity {
-    private ContractsEntity typeOfContract;
+import jakarta.persistence.*;
+
+@Entity
+@Table
+public class Contracts {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+    @ManyToOne
+    private Contracts typeOfContract;
+    @Column
     private double durationTime;
+    @Column
     private double wage;
+    @Column
     private boolean trialPeriod;
+    @Column
     private boolean internshipAlreadyDone;
+    @Column
     private int levelOfContract;
+    @Column
+    private int hoursContract;
 
-    public ContractsEntity(ContractsEntity typeOfContract, double durationTime, double wage, boolean trialPeriod, boolean internshipAlreadyDone, int levelOfContract) {
+
+    public Contracts(long id, Contracts typeOfContract, double durationTime, double wage, boolean trialPeriod, boolean internshipAlreadyDone, int levelOfContract) {
+        this.id = id;
         this.typeOfContract = typeOfContract;
         this.durationTime = durationTime;
         this.wage = wage;
@@ -16,12 +33,21 @@ public class ContractsEntity {
         this.internshipAlreadyDone = internshipAlreadyDone;
         this.levelOfContract = levelOfContract;
     }
+    public Contracts(){}
 
-    public ContractsEntity getTypeOfContract() {
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Contracts getTypeOfContract() {
         return typeOfContract;
     }
 
-    public void setTypeOfContract(ContractsEntity typeOfContract) {
+    public void setTypeOfContract(Contracts typeOfContract) {
         this.typeOfContract = typeOfContract;
     }
 
@@ -65,5 +91,11 @@ public class ContractsEntity {
         this.levelOfContract = levelOfContract;
     }
 
+    public int getHoursContract() {
+        return hoursContract;
+    }
 
+    public void setHoursContract(int hoursContract) {
+        this.hoursContract = hoursContract;
+    }
 }
