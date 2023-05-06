@@ -1,8 +1,10 @@
 package start.services;
 
+import org.springframework.stereotype.Service;
 import start.entities.Contracts;
 import start.entities.Payroll;
 
+@Service
 public class PayrollService {
 
     private Payroll payroll;

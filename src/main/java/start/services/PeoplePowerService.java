@@ -1,5 +1,8 @@
 package start.services;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class PeoplePowerService {
     /*public static void main(String[] args) {
         Employee userFake = new Employee("User", "Fake", "USEFAK80L31E098E", "Programmatore", TypeOfContract.OPEN_ENDED, "1991-04-14");
