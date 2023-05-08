@@ -1,8 +1,10 @@
 package start.entities;
 
 import jakarta.persistence.*;
+import org.springframework.stereotype.Component;
 
 @Entity
+@Component
 @Table
 public class Admin {
 

@@ -1,7 +1,9 @@
 package start.services;
 
+import org.springframework.stereotype.Service;
 import start.entities.Admin;
 
+@Service
 public class AdminService {
     public Admin admin;
     //password verifica

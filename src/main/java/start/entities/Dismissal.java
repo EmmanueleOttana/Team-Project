@@ -1,9 +1,11 @@
 package start.entities;
 
 import jakarta.persistence.*;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 @Entity
+@Component
 @Table
 public class Dismissal {
     @Id

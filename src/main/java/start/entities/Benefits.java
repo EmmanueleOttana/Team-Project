@@ -1,10 +1,12 @@
 package start.entities;
 import jakarta.persistence.*;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Component
 @Table
 public class Benefits {
     @Id

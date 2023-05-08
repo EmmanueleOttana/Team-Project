@@ -16,12 +16,12 @@ public class AdminController {
         this.repository = repository;
     }
 
-    @GetMapping("")
+    @GetMapping
     List<Admin> getAllAdmins() {
         return repository.findAll();
     }
 
-    @PostMapping("")
+    @PostMapping
     Admin newAdmin(@RequestBody Admin newAdmin){
         return repository.save(newAdmin);
     }
