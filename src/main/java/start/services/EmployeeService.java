@@ -1,5 +1,6 @@
 package start.services;
 
+import org.springframework.stereotype.Service;
 import start.entities.Employee;
 import start.repositories.EmployeeRepository;
 import start.entities.TypeOfContract;
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 
+@Service
 public class EmployeeService {
     Employee employee;
 
