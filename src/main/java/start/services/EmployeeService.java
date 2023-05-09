@@ -1,38 +1,24 @@
 package start.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import start.entities.Employee;
 import start.repositories.EmployeeRepository;
-import start.entities.TypeOfContract;
-
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
 
 @Service
 public class EmployeeService {
-    Employee employee;
-
-    public EmployeeService(Employee employee) {
-        this.employee = employee;
+    @Autowired
+    EmployeeRepository repoEmployee;
+    public EmployeeService(EmployeeRepository repo) {
+        this.repoEmployee = repo;
     }
 
-    public void registerEmployee(String name,
-                                 String surname,
-                                 String codiceFiscale,
-                                 String typeOfWork,
-                                 TypeOfContract typeOfContract,
-                                 String dateOfBirth){
 
-        Employee employee = new Employee(name,surname,codiceFiscale,typeOfWork,typeOfContract,dateOfBirth);
-        EmployeeRepository.saveEmployees(employee);
-        System.out.println("L'utente " + surname+name+employee.getId() + " è stato registrato!");
-    }
-    public void resetBadge() {
+    public void resetBadge(Employee employee) {
         String valueKey = LocalDate.of(employee.getAccessBadge().getYear(), employee.getAccessBadge().getMonthValue(), employee.getAccessBadge().getDayOfMonth()) + " " +
                 employee.getSurname() + employee.getName() + employee.getId();
-
         if (!EmployeeRepository.workingHours.containsKey(valueKey)) {
             EmployeeRepository.workingHours.put(valueKey, employee.getWorkHours());
             employee.resetAccess();
@@ -49,14 +35,7 @@ public class EmployeeService {
             }
         }
     }
-    public void badge(){
-        LocalDateTime now = LocalDateTime.now();
-        if(employee.getAccessBadge() == null) {
-            employee.setAccessBadge(now);
-        }else {
-            employee.setWorkHours( (int) ChronoUnit.MINUTES.between(employee.getAccessBadge(),now));
-            resetBadge();
-            }
-    }
+
+
 
 }

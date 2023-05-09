@@ -11,22 +11,22 @@ import java.util.List;
 public class BenefitsController {
     private final BenefitsRepository repository;
 
-    BenefitsController(BenefitsRepository repository) {
+    public BenefitsController(BenefitsRepository repository) {
         this.repository = repository;
     }
 
-    @GetMapping("")
-    List<Benefits> getAllBenefits() {
+    @GetMapping
+    private List<Benefits> getAllBenefits() {
         return repository.findAll();
     }
 
-    @PostMapping("")
-    Benefits newBenefit(@RequestBody Benefits newBenefit){
+    @PostMapping
+    private Benefits newBenefit(@RequestBody Benefits newBenefit){
         return repository.save(newBenefit);
     }
 
     @GetMapping("/{id}")
-    Benefits getSingleBenefit(@PathVariable Long id)throws Exception{
+    public Benefits getSingleBenefit(@PathVariable Long id)throws Exception{
         return repository.findById(id)
                 .orElseThrow(() -> new Exception("ID not found: "+id));
     }
@@ -37,7 +37,7 @@ public class BenefitsController {
      */
 
     @DeleteMapping("/{id}")
-    void deleteBenefit(@PathVariable Long id) {
+    public void deleteBenefit(@PathVariable Long id) {
         repository.deleteById(id);
     }
 }

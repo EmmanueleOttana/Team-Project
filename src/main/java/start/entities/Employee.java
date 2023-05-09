@@ -1,24 +1,23 @@
 package start.entities;
 
 import jakarta.persistence.*;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Entity
+@Component
 @Table
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
     @Column
     private String name;
     @Column
     private String surname;
-    @Column
-    private static int totalIdEmployees;
     @Column
     private String codiceFiscale;
     @Column
@@ -41,8 +40,6 @@ public class Employee {
     {
         this.name = name;
         this.surname = surname;
-        totalIdEmployees ++;
-        this.id = totalIdEmployees;
         this.codiceFiscale = codiceFiscale;
         this.typeOfWork = typeOfWork;
         this.typeOfContract = typeOfContract;

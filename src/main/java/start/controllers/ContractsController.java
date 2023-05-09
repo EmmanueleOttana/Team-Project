@@ -11,16 +11,16 @@ import java.util.List;
 public class ContractsController {
     private final ContractsRepository repository;
 
-    ContractsController(ContractsRepository repository) {
+    public ContractsController(ContractsRepository repository) {
         this.repository = repository;
     }
 
-    @GetMapping("")
+    @GetMapping
     List<Contracts> getAllContracts() {
         return repository.findAll();
     }
 
-    @PostMapping("")
+    @PostMapping
     Contracts newContract(@RequestBody Contracts newContract){
         return repository.save(newContract);
     }
