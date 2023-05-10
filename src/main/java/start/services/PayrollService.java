@@ -6,7 +6,6 @@ import start.entities.Payroll;
 public class PayrollService {
     private Payroll payroll;
     private Contracts contracts;
-    private boolean employeeWork;
     public double calculatePayRoll(){
         double oreMensili = 0.0;
         double stipendioBase = contracts.getWage();
