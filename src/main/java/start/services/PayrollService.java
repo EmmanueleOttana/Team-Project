@@ -76,15 +76,15 @@ public class PayrollService {
     }
 
     /**
-     * Converte un LocalTime in un Double
+     * Converte un LocalTime in un Float
      * @param localTime
-     * @return Double
+     * @return Float
      */
-    public double converterLocalTime(LocalTime localTime){
+    public float converterLocalTime(LocalTime localTime){
         int hours = localTime.getHour();
         int minutes = localTime.getMinute();
         String converter = hours + "." + minutes;
-        return Double.parseDouble(converter);
+        return Float.parseFloat(converter);
     }
     /**
      * @param employee

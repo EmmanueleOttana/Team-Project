@@ -20,7 +20,7 @@ public class EmployeeService {
      */
     public void resetBadge(Employee employee) {
         String valueKey = LocalDate.of(employee.getAccessBadge().getYear(), employee.getAccessBadge().getMonthValue(), employee.getAccessBadge().getDayOfMonth()) + " " +
-                employee.getSurname() + employee.getName() + employee.getId();
+                "Employee: id: "+employee.getId() +" Surname: "+ employee.getSurname() +" Name: "+ employee.getName();
         if (!EmployeeRepository.workingHours.containsKey(valueKey)) {
             EmployeeRepository.workingHours.put(valueKey, employee.getWorkHours());
             employee.resetAccess();

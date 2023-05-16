@@ -24,7 +24,7 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long> {
     default Map<String, String> getHoursEmployee(Employee employee) {
         EmployeeService service = new EmployeeService();
         Map<String, String> hoursEmployee = new HashMap<>();
-        String valueKey = employee.getSurname() + employee.getName() + employee.getId();
+        String valueKey = "Employee: id: "+employee.getId() +" Surname: "+ employee.getSurname() +" Name: "+ employee.getName();
         for (String key : service.mapConverter(workingHours).keySet() ) {
             if (key.contains(valueKey)) {
                 hoursEmployee.put(valueKey, service.mapConverter(workingHours).get(key));
@@ -40,9 +40,10 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long> {
      */
     default Map<String, LocalTime> getSingleEmployeeHours(Employee employee) {
         Map<String, LocalTime> employeeHours = new HashMap<>();
-        String valueKey = employee.getSurname() + employee.getName() + employee.getId();
+        String valueKey = "Employee: id: "+employee.getId() +" Surname: "+ employee.getSurname() +" Name: "+ employee.getName();
         String currentMonth = LocalDate.now().getYear() + "-" +
-                (LocalDate.now().getMonthValue() < 10 ? "0" + LocalDate.now().getMonthValue() : LocalDate.now().getMonthValue());
+                (LocalDate.now().getMonthValue() < 10 ? "0" +
+                        LocalDate.now().getMonthValue() : LocalDate.now().getMonthValue());
         for (String key : workingHours.keySet()) {
             String keyMonth = key.substring(0,7);
             if (key.contains(valueKey) && keyMonth.equals(currentMonth)) {
