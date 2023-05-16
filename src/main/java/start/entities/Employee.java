@@ -27,6 +27,8 @@ public class Employee {
     @Column
     private LocalDate dateOfBirth;
     @Column
+    private double pagaOraria;
+    @Column
     private LocalTime workHours; //ore di lavoro giornaliero
     @Column
     private LocalDateTime accessBadge;
@@ -36,7 +38,8 @@ public class Employee {
                     String codiceFiscale,
                     String typeOfWork,
                     TypeOfContract typeOfContract,
-                    String dateOfBirth)
+                    String dateOfBirth,
+                    double pagaOraria)
     {
         this.name = name;
         this.surname = surname;
@@ -44,6 +47,7 @@ public class Employee {
         this.typeOfWork = typeOfWork;
         this.typeOfContract = typeOfContract;
         this.dateOfBirth = LocalDate.parse(dateOfBirth);
+        this.pagaOraria = pagaOraria;
     }
     public Employee(){}
 
@@ -79,7 +83,7 @@ public class Employee {
         this.typeOfWork = typeOfWork;
     }
 
-    public String getTypeOfContract() { return typeOfContract.toString(); }
+    public TypeOfContract getTypeOfContract() { return typeOfContract; }
 
     public void setTypeOfContract(TypeOfContract typeOfContract) {
         this.typeOfContract = typeOfContract;
@@ -94,6 +98,14 @@ public class Employee {
     public void setAccessBadge(LocalDateTime accessBadge) { this.accessBadge = accessBadge; }
 
     public LocalTime getWorkHours() { return workHours; }
+
+    public double getPagaOraria() {
+        return pagaOraria;
+    }
+
+    public void setPagaOraria(double pagaOraria) {
+        this.pagaOraria = pagaOraria;
+    }
 
     public void setWorkHours(int workMinutes) {
         if(workMinutes >= 60) {
