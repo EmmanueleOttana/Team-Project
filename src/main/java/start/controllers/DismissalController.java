@@ -1,27 +1,33 @@
 package start.controllers;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import start.entities.Dismissal;
 import start.repositories.DismissalRepository;
 import org.springframework.web.bind.annotation.*;
+import start.services.DismissalService;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/dismissal")
 public class DismissalController {
-    private final DismissalRepository repository;
+    @Autowired
+    private DismissalRepository repository;
+    @Autowired
+    private DismissalService service;
 
-    DismissalController(DismissalRepository repository) {
-        this.repository = repository;
+    @GetMapping("/employee/{id}")
+    String getDismissal(@RequestBody Dismissal newDismissal){
+        return service.printInfo();
     }
 
-    @GetMapping("")
+    @GetMapping
     List<Dismissal> getAllDismissals() {
         return repository.findAll();
     }
 
-    @PostMapping("")
+    @PostMapping
     Dismissal newDismissal(@RequestBody Dismissal newDismissal){
         return repository.save(newDismissal);
     }
