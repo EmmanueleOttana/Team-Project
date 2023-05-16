@@ -26,8 +26,7 @@ public class Contracts {
     private int hoursContract;
 
 
-    public Contracts(long id, Contracts typeOfContract, double durationTime, double wage, boolean trialPeriod, boolean internshipAlreadyDone, int levelOfContract) {
-        this.id = id;
+    public Contracts(Contracts typeOfContract, double durationTime, double wage, boolean trialPeriod, boolean internshipAlreadyDone, int levelOfContract) {
         this.typeOfContract = typeOfContract;
         this.durationTime = durationTime;
         this.wage = wage;

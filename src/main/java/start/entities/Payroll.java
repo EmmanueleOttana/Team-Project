@@ -1,10 +1,8 @@
 package start.entities;
-
 import jakarta.persistence.*;
-import org.springframework.stereotype.Component;
+import java.time.LocalTime;
 
 @Entity
-@Component
 @Table
 public class Payroll {
     @Id
@@ -12,14 +10,18 @@ public class Payroll {
     private long id;
     @ManyToOne
     private Employee employees;
+    /*
     @Column
     private boolean presenza; //presence
     @Column
     private double oreAssenze; //absentHours
+     */
+    @Enumerated(EnumType.STRING)
+    private TypeOfContract typeOfContract;
     @Column
     private double oreContratto; //contractHours
     @Column
-    private double oreEffettuate; //hoursWorked
+    private LocalTime oreEffettuate; //hoursWorked
     @Column
     private double trattenuteStato;
     @Column
@@ -27,27 +29,21 @@ public class Payroll {
     @Column
     private double retribuzioneNetta;
 
-    public Payroll(long id, Employee employee, boolean presenza, double oreAssenze, double oreContratto, double oreEffettuate, double trattenuteStato, double retribuzioneLorda, double retribuzioneNetta) {
-        this.id=id;
+    public Payroll(Employee employee, double trattenuteStato, double retribuzioneLorda, double retribuzioneNetta) {
         this.employees = employee;
-        this.presenza = presenza;
-        this.oreAssenze = oreAssenze;
-        this.oreContratto = oreContratto;
-        this.oreEffettuate = oreEffettuate;
+        this.typeOfContract = employee.getTypeOfContract();
+        this.oreContratto = this.typeOfContract.getOreDaContratto();
         this.trattenuteStato = trattenuteStato;
         this.retribuzioneLorda = retribuzioneLorda;
         this.retribuzioneNetta = retribuzioneNetta;
     }
+
     public Payroll(){}
 
     public long getId() {
         return id;
     }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
+/*
     public boolean isPresenza() {
         return presenza;
     }
@@ -59,8 +55,8 @@ public class Payroll {
     public double getOreContratto() {
         return oreContratto;
     }
-
-    public double getOreEffettuate() {
+*/
+    public LocalTime getOreEffettuate() {
         return oreEffettuate;
     }
 
@@ -89,7 +85,7 @@ public class Payroll {
     public void setRetribuzioneNetta(double retribuzioneNetta) {
         this.retribuzioneNetta = retribuzioneNetta;
     }
-
+/*
     public void setPresenza(boolean presenza) {
         this.presenza = presenza;
     }
@@ -98,14 +94,13 @@ public class Payroll {
     public void setOreAssenze(int oreAssenze) {
         this.oreAssenze = oreAssenze;
     }
-
+*/
     // Metodo per inserire le ore di contratto
     public void setOreContratto(int oreContratto) {
         this.oreContratto = oreContratto;
     }
 
-    // Metodo per inserire le ore effettuate
-    public void setOreEffettuate(int oreEffettuate) {
+    public void setOreEffettuate(LocalTime oreEffettuate) {
         this.oreEffettuate = oreEffettuate;
     }
 }
