@@ -3,9 +3,7 @@ package start.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import start.entities.Benefits;
-import start.entities.Employee;
 import start.repositories.BenefitsRepository;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -13,7 +11,6 @@ import java.util.Optional;
 public class BenefitsService {
     @Autowired
     private BenefitsRepository benefitsRepository;
-
 
     public Benefits benefits;
     public String calculateTotalBenefits(){

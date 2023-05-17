@@ -13,7 +13,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
 import static start.repositories.EmployeeRepository.workingHours;
 
 @Service
@@ -21,15 +20,13 @@ public class EmployeeService {
     @Autowired
     EmployeeRepository repoEmployee;
 
-    EmployeeService employeeService;
-
     /**
      * Serve ad inserire gli accessi del dipendente nel HashMap<>() dedicato ed una volta fatto resettarne il badge.
      * @param employee
      */
     public void resetBadge(Employee employee) {
         String valueKey = LocalDate.of(employee.getAccessBadge().getYear(), employee.getAccessBadge().getMonthValue(), employee.getAccessBadge().getDayOfMonth()) + " " +
-                "Employee: id: "+employee.getId() +" Surname: "+ employee.getSurname() +" Name: "+ employee.getName();
+                employee.assignUserName();
         if (!workingHours.containsKey(valueKey)) {
             workingHours.put(valueKey, employee.getWorkHours());
             employee.resetAccess();
@@ -68,12 +65,11 @@ public class EmployeeService {
      */
 
     public Map<String, String> getHoursEmployee(Employee employee) {
-        EmployeeService service = new EmployeeService();
         Map<String, String> hoursEmployee = new HashMap<>();
-        String valueKey = "Employee: id: "+employee.getId() +" Surname: "+ employee.getSurname() +" Name: "+ employee.getName();
-        for (String key : service.mapConverter(workingHours).keySet() ) {
+        String valueKey = employee.assignUserName();
+        for (String key : mapConverter(workingHours).keySet() ) {
             if (key.contains(valueKey)) {
-                hoursEmployee.put(valueKey, service.mapConverter(workingHours).get(key));
+                hoursEmployee.put(valueKey, mapConverter(workingHours).get(key));
                 return hoursEmployee;
             }
         }
@@ -88,10 +84,11 @@ public class EmployeeService {
      */
     public Map<String, LocalTime> getSingleEmployeeHours(Employee employee) {
         Map<String, LocalTime> employeeHours = new HashMap<>();
-        String valueKey = "Employee: id: "+employee.getId() +" Surname: "+ employee.getSurname() +" Name: "+ employee.getName();
+        String valueKey = employee.assignUserName();
         String currentMonth = LocalDate.now().getYear() + "-" +
-                (LocalDate.now().getMonthValue() < 10 ? "0" +
-                        LocalDate.now().getMonthValue() : LocalDate.now().getMonthValue());
+                (LocalDate.now().getMonthValue() < 10 ?
+                        "0" + LocalDate.now().getMonthValue() :
+                        LocalDate.now().getMonthValue());
         for (String key : workingHours.keySet()) {
             String keyMonth = key.substring(0,7);
             if (key.contains(valueKey) && keyMonth.equals(currentMonth)) {
@@ -135,11 +132,11 @@ public class EmployeeService {
 
     /**
      *  Ritorna un un replace di un Employee by ID
-     * @param newEmployee l'employee per il Replace
      * @param id dell'Employee
      * @return Employee
      */
-    public Employee getReplaceEmployee(Employee newEmployee,long id){
+    public Employee getReplaceEmployee(long id){
+        Employee newEmployee = repoEmployee.getReferenceById(id);
         return repoEmployee.findById(id)
                 .map(employee -> {
                     employee.setName(newEmployee.getName());
@@ -151,15 +148,13 @@ public class EmployeeService {
                     return repoEmployee.saveAndFlush(newEmployee);
                 });
     }
-
-
     /**
      *  Crea il badge
      * @param id dell'Employee
      * @return Map<String,String>
      * @throws Exception
      */
-    public Map<String,String> getBadge(long id) throws Exception{
+    public Map<String,String> setBadge(long id) throws Exception{
         LocalDateTime now = LocalDateTime.now();
         Employee employee = repoEmployee.findById(id).orElseThrow(()
                 -> new Exception("ID not found: "+id));
@@ -169,16 +164,15 @@ public class EmployeeService {
         }else {
             employee.setWorkHours( (int) ChronoUnit.MINUTES.
                     between(employee.getAccessBadge(),now));
-            employeeService.resetBadge(employee);
+            resetBadge(employee);
             repoEmployee.saveAndFlush(employee);
         }
-        return employeeService.getHoursEmployee(employee);
+        return getHoursEmployee(employee);
     }
 
     public Map<String,String> getAllHoursEmployee(long id) throws Exception {
         try {
-            return employeeService.mapConverter(employeeService.
-                    getSingleEmployeeHours(repoEmployee.findById(id).get()));
+            return mapConverter(getSingleEmployeeHours(repoEmployee.findById(id).get()));
         }catch(Exception e){
             throw new Exception("Hours not found");
         }
@@ -194,7 +188,7 @@ public class EmployeeService {
             repoEmployee.saveAndFlush(employee1);
             repoEmployee.saveAndFlush(employee2);
             repoEmployee.saveAndFlush(employee3);
-            return "Fake employees are created!";
+            return "Dummies employees are created!";
         }catch (Exception e){
             throw new Exception("Cannot create Dummies :C");
         }

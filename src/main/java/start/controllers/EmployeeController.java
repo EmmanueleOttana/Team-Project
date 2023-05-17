@@ -2,10 +2,10 @@ package start.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import start.entities.Employee;
-import start.entities.TypeOfContract;
 import start.repositories.EmployeeRepository;
 import org.springframework.web.bind.annotation.*;
 import start.services.EmployeeService;
+import start.services.PayrollService;
 
 import java.util.List;
 import java.util.Map;
@@ -16,6 +16,10 @@ import java.util.Optional;
 public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
+    @Autowired
+    private EmployeeRepository repoEmployee;
+    @Autowired
+    private PayrollService payrollService = new PayrollService();
 
 
     @GetMapping("/getAll")
@@ -34,8 +38,8 @@ public class EmployeeController {
     }
 
     @PutMapping("/{id}")
-    public Employee replaceEmployee(@RequestBody Employee newEmployee, @PathVariable Long id) {
-        return employeeService.getReplaceEmployee(newEmployee,id);
+    public Employee replaceEmployee(@PathVariable Long id) {
+        return employeeService.getReplaceEmployee(id);
     }
 
     @DeleteMapping("/{id}")
@@ -50,7 +54,7 @@ public class EmployeeController {
      */
     @PutMapping("/badge/{id}")
     public Map<String, String> badge(@PathVariable long id) throws Exception {
-        return employeeService.getBadge(id);
+        return employeeService.setBadge(id);
     }
 
     /**
@@ -70,10 +74,16 @@ public class EmployeeController {
     public Map<String, String> getAllHoursEmployee(@PathVariable long id) throws Exception {
         return employeeService.getAllHoursEmployee(id);
     }
+    @GetMapping("/totalHours/{id}")
+    public String totalHoursEmployee(@PathVariable long id){
+        Employee employee = repoEmployee.findById(id).orElseThrow();
+        return employee.assignUserName()+", ha effettuato in totale: "+
+                payrollService.calculateHours(id)+" ore di lavoro mensile!";
+    }
 
     @Deprecated
-    @PostMapping("/fake")
-    public String createEmployeesFake() throws Exception {
+    @PostMapping("/dummies")
+    public String createEmployeesDummies() throws Exception {
         return employeeService.createDummiesEmployees();
     }
 

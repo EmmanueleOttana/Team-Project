@@ -1,14 +1,10 @@
 package start.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import start.entities.Employee;
 import start.entities.Payroll;
 import start.repositories.EmployeeRepository;
-import start.repositories.PayrollRepository;
 import org.springframework.web.bind.annotation.*;
 import start.services.PayrollService;
-
-import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,4 +50,5 @@ public class PayrollController {
     public Payroll calculatePayroll(@PathVariable long id)throws Exception {
         return payrollService.calculatePayrollByID(id);
     }
+
 }

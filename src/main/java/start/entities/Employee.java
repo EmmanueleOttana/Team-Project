@@ -2,7 +2,6 @@ package start.entities;
 
 import jakarta.persistence.*;
 import org.springframework.stereotype.Component;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -29,10 +28,11 @@ public class Employee {
     @Column
     private double pagaOraria;
     @Column
-    private LocalTime workHours; //ore di lavoro giornaliero
-    @Column
     private LocalDateTime accessBadge;
-
+    @Transient
+    private LocalTime workHours; //ore di lavoro giornaliero
+    @Transient
+    private String userName;
 
     public Employee(String name,
                     String surname,
@@ -66,6 +66,12 @@ public class Employee {
 
     public long getId() {
         return id;
+    }
+
+    public String assignUserName() {
+        this.userName = "ID Employee: "+ this.id +
+                ", Complete name: "+ this.surname +" "+ this.name;
+        return this.userName;
     }
 
     public void setId(long id) {

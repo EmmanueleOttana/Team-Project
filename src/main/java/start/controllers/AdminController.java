@@ -60,8 +60,8 @@ public class AdminController {
     }
 
     @PutMapping("/employee/{id}")
-    public Employee replaceEmployee(@RequestBody Employee newEmployee, @PathVariable Long id) {
-        return employeeService.getReplaceEmployee(newEmployee,id);
+    public Employee replaceEmployee(@PathVariable Long id) {
+        return employeeService.getReplaceEmployee(id);
     }
 
     @DeleteMapping("/employee/{id}")

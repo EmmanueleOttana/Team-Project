@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 import start.entities.Dismissal;
 import start.entities.Employee;
 import start.repositories.DismissalRepository;
-
 import java.util.List;
 import java.util.Optional;
 

@@ -20,11 +20,7 @@ public class PayrollService {
     @Autowired
     private EmployeeRepository employeeRepository;
     @Autowired
-    PayrollRepository payrollRepository;
-
-    PayrollService payrollService;
-
-
+    private PayrollRepository payrollRepository;
 
     /**
      * @param employee
@@ -32,7 +28,7 @@ public class PayrollService {
      */
     public Payroll calculatePayRoll(Employee employee){
         double straordinari = 0.0;
-        double oreEffettuate = converterLocalTime(calculateHours(employee));
+        double oreEffettuate = converterLocalTime(calculateHours(employee.getId()));
         double oreDaContratto = employee.getTypeOfContract().getOreDaContratto();
         if ( oreEffettuate  > oreDaContratto ){
             straordinari = oreEffettuate - oreDaContratto;
@@ -54,7 +50,7 @@ public class PayrollService {
                 tutteLeTrattenute,
                 retribuzioneLorda,
                 retribuzioneNetta);
-        newPayroll.setOreEffettuate(calculateHours(employee));
+        newPayroll.setOreEffettuate(calculateHours(employee.getId()));
         return newPayroll;
     }
 
@@ -100,7 +96,8 @@ public class PayrollService {
      * @param employee
      * @return Somma tutte le ore mensili effettuate da un singolo dipendente.
      */
-    public LocalTime calculateHours(Employee employee) {
+    public LocalTime calculateHours(long idEmployee) {
+        Employee employee = employeeRepository.findById(idEmployee).get();
         int hours = 0;
         int minutes = 0;
         for (LocalTime time : employeeService.getSingleEmployeeHours(employee).values()) {
@@ -146,8 +143,7 @@ public class PayrollService {
     }
     public Payroll calculatePayrollByID(long id) throws Exception {
         try {
-            return payrollRepository.saveAndFlush(payrollService.
-                    calculatePayRoll(employeeRepository.findById(id).get()));
+            return payrollRepository.saveAndFlush(calculatePayRoll(employeeRepository.findById(id).get()));
         }catch (Exception e){
             throw new Exception("ID not found");
         }
