@@ -1,35 +1,38 @@
 package start.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import start.entities.Admin;
+import start.entities.Employee;
 import start.repositories.AdminRepository;
 import org.springframework.web.bind.annotation.*;
+import start.services.AdminService;
+import start.services.EmployeeService;
 
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
-    private final AdminRepository repository;
-
-    AdminController(AdminRepository repository) {
-        this.repository = repository;
-    }
+    @Autowired
+    AdminService adminService;
+    @Autowired
+    EmployeeService employeeService;
 
     @GetMapping
-    List<Admin> getAllAdmins() {
-        return repository.findAll();
+    List<Admin> getAllAdmins() throws Exception {
+        return adminService.getAllAdmins();
     }
 
     @PostMapping
-    Admin newAdmin(@RequestBody Admin newAdmin){
-        return repository.save(newAdmin);
+    Admin newAdmin(@RequestBody Admin newAdmin) throws Exception {
+        return adminService.newAdmin(newAdmin);
     }
 
     @GetMapping("/{id}")
-    Admin getSingleAdmin(@PathVariable Long id)throws Exception{
-        return repository.findById(id)
-                .orElseThrow(() -> new Exception("ID not found: "+id));
+    Optional<Admin> getSingleAdmin(@PathVariable Long id)throws Exception{
+        return adminService.getAdminById(id);
     }
 
     /**
@@ -38,7 +41,31 @@ public class AdminController {
      */
 
     @DeleteMapping("/{id}")
-    void deleteAdmin(@PathVariable Long id) {
-        repository.deleteById(id);
+    void deleteAdmin(@PathVariable Long id) throws Exception {
+        adminService.deleteAdmin(id);
+    }
+    @GetMapping("/employee/getAll")
+    List<Employee> getAllEmployees() throws Exception {
+        return employeeService.getAllEmployees();
+    }
+
+    @PostMapping("/employee/create")
+    Employee newEmployee(@RequestBody Employee newEmployee) throws Exception{
+        return employeeService.newEmployee(newEmployee);
+    }
+
+    @GetMapping("/employee/{id}")
+    Optional<Employee> getSingleEmployee(@PathVariable Long id) throws Exception {
+        return employeeService.getEmployeeById(id);
+    }
+
+    @PutMapping("/employee/{id}")
+    public Employee replaceEmployee(@RequestBody Employee newEmployee, @PathVariable Long id) {
+        return employeeService.getReplaceEmployee(newEmployee,id);
+    }
+
+    @DeleteMapping("/employee/{id}")
+    void deleteEmployee(@PathVariable Long id) throws Exception {
+        employeeService.deleteEmployee(id);
     }
 }

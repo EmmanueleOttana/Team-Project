@@ -1,34 +1,33 @@
 package start.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import start.entities.Contracts;
 import start.repositories.ContractsRepository;
 import org.springframework.web.bind.annotation.*;
+import start.services.ContractsService;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/contract")
 public class ContractsController {
-    private final ContractsRepository repository;
-
-    public ContractsController(ContractsRepository repository) {
-        this.repository = repository;
-    }
+    @Autowired
+    ContractsService contractsService;
 
     @GetMapping
-    List<Contracts> getAllContracts() {
-        return repository.findAll();
+    List<Contracts> getAllContracts() throws Exception{
+        return contractsService.getAllContracts();
     }
 
     @PostMapping
-    Contracts newContract(@RequestBody Contracts newContract){
-        return repository.save(newContract);
+    Contracts newContract(@RequestBody Contracts newContract)throws Exception{
+        return contractsService.newContracts(newContract);
     }
 
     @GetMapping("/{id}")
-    Contracts getSingleContract(@PathVariable Long id)throws Exception{
-        return repository.findById(id)
-                .orElseThrow(() -> new Exception("ID not found: "+id));
+    Optional<Contracts> getSingleContract(@PathVariable Long id)throws Exception{
+        return contractsService.getContractsById(id);
     }
 
     /**
@@ -37,7 +36,7 @@ public class ContractsController {
      */
 
     @DeleteMapping("/{id}")
-    void deleteContract(@PathVariable Long id) {
-        repository.deleteById(id);
+    void deleteContract(@PathVariable Long id) throws Exception{
+        contractsService.deleteContract(id);
     }
 }
