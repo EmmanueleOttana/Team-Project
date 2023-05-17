@@ -5,14 +5,26 @@ import start.entities.Contracts;
 import start.entities.Employee;
 import start.entities.Payroll;
 import start.repositories.EmployeeRepository;
+import start.repositories.PayrollRepository;
+
 import java.time.LocalTime;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PayrollService {
     @Autowired
     private Contracts contracts;
     @Autowired
-    private EmployeeRepository repoEmployee;
+    private EmployeeService employeeService;
+    @Autowired
+    private EmployeeRepository employeeRepository;
+    @Autowired
+    PayrollRepository payrollRepository;
+
+    PayrollService payrollService;
+
+
 
     /**
      * @param employee
@@ -55,14 +67,12 @@ public class PayrollService {
         double redditoImponibile = stipendioLordo - 5000;
         if (redditoImponibile > 0 && redditoImponibile <= 15000) {
             irpef = redditoImponibile * 0.23;
-        } else if (redditoImponibile > 15000 && redditoImponibile <= 28000) {
-            irpef = 3450 + ((redditoImponibile - 15000) * 0.27);
-        } else if (redditoImponibile > 28000 && redditoImponibile <= 55000) {
-            irpef = 6960 + ((redditoImponibile - 28000) * 0.38);
-        } else if (redditoImponibile > 55000 && redditoImponibile <= 75000) {
-            irpef = 17220 + ((redditoImponibile - 55000) * 0.41);
-        } else if (redditoImponibile > 75000) {
-            irpef = 25420 + ((redditoImponibile - 75000) * 0.43);
+        } else if (redditoImponibile > 15001 && redditoImponibile <= 28000) {
+            irpef = 3450 + ((redditoImponibile - 15001) * 0.25);
+        } else if (redditoImponibile > 28001 && redditoImponibile <= 50000) {
+            irpef = 6700 + ((redditoImponibile - 28001) * 0.35);
+        } else if (redditoImponibile > 50001 ) {
+            irpef = 14400 + ((redditoImponibile - 50001) * 0.43);
         }
         return irpef;
     }
@@ -93,7 +103,7 @@ public class PayrollService {
     public LocalTime calculateHours(Employee employee) {
         int hours = 0;
         int minutes = 0;
-        for (LocalTime time : repoEmployee.getSingleEmployeeHours(employee).values()) {
+        for (LocalTime time : employeeService.getSingleEmployeeHours(employee).values()) {
             hours += time.getHour();
             minutes += time.getMinute();
         }
@@ -104,7 +114,42 @@ public class PayrollService {
             return LocalTime.of(hours,minutes);
         }
     }
-
-
-
+    // Custom and CRUD calls
+    public List<Payroll> getAllPayrolls()throws Exception{
+        List<Payroll> allPayrollsFromDB = payrollRepository.findAll();
+        if (allPayrollsFromDB.isEmpty()){
+            throw new Exception("No Payrolls found!");
+        }
+        return allPayrollsFromDB;
+    }
+    public Payroll newPayroll(Payroll payroll)throws Exception {
+        try {
+            if (payroll == null) return null;
+            return payrollRepository.saveAndFlush(payroll);
+        } catch (Exception e) {
+            throw new Exception("Payroll not found");
+        }
+    }
+    public Optional<Payroll> getSinglePayrollByID(long id) throws Exception{
+        try {
+            return payrollRepository.findById(id);
+        }catch (Exception e){
+            throw new Exception("ID not found");
+        }
+    }
+    public void deletePayrollByID(long id) throws Exception{
+        try {
+            payrollRepository.deleteById(id);
+        }catch (Exception e){
+            throw new Exception("ID not found");
+        }
+    }
+    public Payroll calculatePayrollByID(long id) throws Exception {
+        try {
+            return payrollRepository.saveAndFlush(payrollService.
+                    calculatePayRoll(employeeRepository.findById(id).get()));
+        }catch (Exception e){
+            throw new Exception("ID not found");
+        }
+    }
 }

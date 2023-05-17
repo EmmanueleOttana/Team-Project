@@ -3,17 +3,15 @@ package start.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import start.entities.Dismissal;
-import start.repositories.DismissalRepository;
 import org.springframework.web.bind.annotation.*;
 import start.services.DismissalService;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/dismissal")
 public class DismissalController {
-    @Autowired
-    private DismissalRepository repository;
     @Autowired
     private DismissalService service;
 
@@ -23,19 +21,18 @@ public class DismissalController {
     }
 
     @GetMapping
-    List<Dismissal> getAllDismissals() {
-        return repository.findAll();
+    List<Dismissal> getAllDismissals()throws Exception {
+        return service.getAllDismissals();
     }
 
     @PostMapping
-    Dismissal newDismissal(@RequestBody Dismissal newDismissal){
-        return repository.save(newDismissal);
+    Dismissal newDismissal(@RequestBody Dismissal newDismissal)throws Exception{
+        return service.newDismissal(newDismissal);
     }
 
     @GetMapping("/{id}")
-    Dismissal getSingleDismissal(@PathVariable Long id)throws Exception{
-        return repository.findById(id)
-                .orElseThrow(() -> new Exception("ID not found: "+id));
+    Optional<Dismissal> getSingleDismissal(@PathVariable Long id)throws Exception{
+        return service.getDismissalById(id);
     }
 
     /**
@@ -44,7 +41,7 @@ public class DismissalController {
      */
 
     @DeleteMapping("/{id}")
-    void deleteDismissal(@PathVariable Long id) {
-        repository.deleteById(id);
+    void deleteDismissal(@PathVariable Long id)throws Exception {
+        service.deleteDismissalByID(id);
     }
 }

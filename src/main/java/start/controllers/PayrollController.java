@@ -1,42 +1,38 @@
 package start.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import start.entities.Employee;
 import start.entities.Payroll;
 import start.repositories.EmployeeRepository;
 import start.repositories.PayrollRepository;
 import org.springframework.web.bind.annotation.*;
 import start.services.PayrollService;
 
+import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/payroll")
 public class PayrollController {
     @Autowired
-    private PayrollRepository repository;
-    @Autowired
     private PayrollService payrollService;
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    PayrollController(PayrollRepository repository) {
-        this.repository = repository;
-    }
-
     @GetMapping
-    List<Payroll> getAllPayrolls() {
-        return repository.findAll();
+    List<Payroll> getAllPayrolls() throws Exception {
+        return payrollService.getAllPayrolls();
     }
 
     @PostMapping
-    Payroll newPayroll(@RequestBody Payroll newPayroll){
-        return repository.save(newPayroll);
+    Payroll newPayroll(@RequestBody Payroll newPayroll) throws Exception {
+        return payrollService.newPayroll(newPayroll);
     }
 
     @GetMapping("/{id}")
-    Payroll getSinglePayroll(@PathVariable Long id)throws Exception{
-        return repository.findById(id)
-                .orElseThrow(() -> new Exception("ID not found: "+id));
+    Optional<Payroll> getSinglePayroll(@PathVariable Long id)throws Exception{
+        return payrollService.getSinglePayrollByID(id);
     }
 
     /**
@@ -45,8 +41,8 @@ public class PayrollController {
      */
 
     @DeleteMapping("/{id}")
-    void deletePayroll(@PathVariable Long id) {
-        repository.deleteById(id);
+    void deletePayroll(@PathVariable Long id) throws Exception {
+        payrollService.deletePayrollByID(id);
     }
 
     /**
@@ -55,8 +51,7 @@ public class PayrollController {
      * @return
      */
     @PostMapping("/create/{id}")
-    public Payroll testPayroll(@PathVariable long id){
-        return payrollService.calculatePayRoll(employeeRepository.findById(id).get());
+    public Payroll calculatePayroll(@PathVariable long id)throws Exception {
+        return payrollService.calculatePayrollByID(id);
     }
-
 }

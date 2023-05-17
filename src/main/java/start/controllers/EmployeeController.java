@@ -7,55 +7,40 @@ import start.repositories.EmployeeRepository;
 import org.springframework.web.bind.annotation.*;
 import start.services.EmployeeService;
 
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/employee")
 public class EmployeeController {
     @Autowired
-    private EmployeeRepository repoEmployees;
-    @Autowired
     private EmployeeService employeeService;
-    public EmployeeRepository getRepoEmployees() {
-        return repoEmployees;
-    }
 
-    @GetMapping("/getall")
-    List<Employee> getAllEmployees() {
-        return repoEmployees.findAll();
+
+    @GetMapping("/getAll")
+    List<Employee> getAllEmployees() throws Exception {
+        return employeeService.getAllEmployees();
     }
 
     @PostMapping("/create")
-    Employee newEmployee(@RequestBody Employee newEmployee) {
-        return repoEmployees.saveAndFlush(newEmployee);
+    Employee newEmployee(@RequestBody Employee newEmployee) throws Exception{
+        return employeeService.newEmployee(newEmployee);
     }
 
     @GetMapping("/{id}")
-    Employee getSingleEmployee(@PathVariable Long id) throws Exception {
-        return repoEmployees.findById(id)
-                .orElseThrow(() -> new Exception("ID not found: "+id));
+    Optional<Employee> getSingleEmployee(@PathVariable Long id) throws Exception {
+        return employeeService.getEmployeeById(id);
     }
 
     @PutMapping("/{id}")
     public Employee replaceEmployee(@RequestBody Employee newEmployee, @PathVariable Long id) {
-        return repoEmployees.findById(id)
-                .map(employee -> {
-                    employee.setName(newEmployee.getName());
-                    employee.setTypeOfWork(newEmployee.getTypeOfWork());
-                    return repoEmployees.saveAndFlush(employee);
-                })
-                .orElseGet(() -> {
-                    newEmployee.setId(id);
-                    return repoEmployees.saveAndFlush(newEmployee);
-                });
+        return employeeService.getReplaceEmployee(newEmployee,id);
     }
 
     @DeleteMapping("/{id}")
-    void deleteEmployee(@PathVariable Long id) {
-        repoEmployees.deleteById(id);
+    void deleteEmployee(@PathVariable Long id) throws Exception {
+        employeeService.deleteEmployee(id);
     }
 
     /**
@@ -65,17 +50,7 @@ public class EmployeeController {
      */
     @PutMapping("/badge/{id}")
     public Map<String, String> badge(@PathVariable long id) throws Exception {
-        LocalDateTime now = LocalDateTime.now();
-        Employee employee = repoEmployees.findById(id).orElseThrow(() -> new Exception("ID not found: "+id));
-        if(employee.getAccessBadge() == null) {
-            employee.setAccessBadge(now);
-            repoEmployees.saveAndFlush(employee);
-        }else {
-            employee.setWorkHours( (int) ChronoUnit.MINUTES.between(employee.getAccessBadge(),now));
-            employeeService.resetBadge(employee);
-            repoEmployees.saveAndFlush(employee);
-        }
-        return repoEmployees.getHoursEmployee(employee);
+        return employeeService.getBadge(id);
     }
 
     /**
@@ -87,24 +62,19 @@ public class EmployeeController {
     }
 
     /**
+     * ritorna una Map<String,String> di tutte le ore dell'Employee
      * @param id
      * @return Le ore di un singolo employee tramite l'id
      */
     @GetMapping("/hours/{id}")
-    public Map<String, String> getAllHoursEmployees(@PathVariable long id){
-        return employeeService.mapConverter(repoEmployees.getSingleEmployeeHours(repoEmployees.findById(id).get()));
+    public Map<String, String> getAllHoursEmployee(@PathVariable long id) throws Exception {
+        return employeeService.getAllHoursEmployee(id);
     }
 
     @Deprecated
     @PostMapping("/fake")
-    public String createEmployeesFake(){
-        Employee employee1 = new Employee("Harry", "Potter", "PTTHRY80L31E098E", "Programmatore", TypeOfContract.OPEN_ENDED, "1980-07-31", 10);
-        Employee employee2 = new Employee("Hermione", "Granger", "GRNHMN79P59F158S", "Professoressa", TypeOfContract.AGENCY_WORK, "1979-09-19", 12);
-        Employee employee3 = new Employee("User", "Fake", "USEFAK80L31E098E", "Programmatore", TypeOfContract.ON_CALL_CONTRACT, "1991-04-14", 11.5);
-        repoEmployees.saveAndFlush(employee1);
-        repoEmployees.saveAndFlush(employee2);
-        repoEmployees.saveAndFlush(employee3);
-        return "Fake employees are created!";
+    public String createEmployeesFake() throws Exception {
+        return employeeService.createDummiesEmployees();
     }
 
 

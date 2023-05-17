@@ -1,30 +1,26 @@
 package start.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import start.entities.Dismissal;
+import start.entities.PeoplePower;
+import start.repositories.PeoplePowerRepository;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PeoplePowerService {
-    /*public static void main(String[] args) {
-        Employee userFake = new Employee("User", "Fake", "USEFAK80L31E098E", "Programmatore", TypeOfContract.OPEN_ENDED, "1991-04-14");
-
-        EmployeeService emplFake = new EmployeeService(userFake);
-
-        emplFake.registerEmployee("Harry", "Potter", "PTTHRY80L31E098E", "Programmatore", TypeOfContract.OPEN_ENDED, "1980-07-31");
-        emplFake.registerEmployee("Hermione", "Granger", "GRNHMN79P59F158S", "Professoressa", TypeOfContract.AGENCY_WORK, "1979-09-19");
-        EmployeeRepository.saveEmployees(userFake);
+    @Autowired
+    PeoplePowerRepository peoplePowerRepository;
 
 
-        emplFake.badge();
-        System.out.println();
-        emplFake.badge();
-        System.out.println();
-        emplFake.badge();
-        System.out.println();
-        emplFake.badge();
-
-        System.out.println(EmployeeRepository.employees);
-        System.out.println(EmployeeRepository.printHoursEmployees());
-
-
-    }*/
+    public PeoplePower newPeoplePower(PeoplePower newPeoplePower)throws Exception{
+        try {
+            if (newPeoplePower==null) return null;
+            return peoplePowerRepository.saveAndFlush(newPeoplePower);
+        }catch (Exception e){
+            throw new Exception("PeoplePower not found");
+        }
+    }
 }

@@ -1,34 +1,35 @@
 package start.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import start.entities.Benefits;
 import start.repositories.BenefitsRepository;
 import org.springframework.web.bind.annotation.*;
+import start.services.BenefitsService;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/benefits")
 public class BenefitsController {
-    private final BenefitsRepository repository;
+    @Autowired
+    BenefitsService benefitsService;
 
-    public BenefitsController(BenefitsRepository repository) {
-        this.repository = repository;
-    }
+
 
     @GetMapping
-    private List<Benefits> getAllBenefits() {
-        return repository.findAll();
+    private List<Benefits> getAllBenefits() throws Exception{
+        return benefitsService.getAllBenefits();
     }
 
     @PostMapping
-    private Benefits newBenefit(@RequestBody Benefits newBenefit){
-        return repository.save(newBenefit);
+    private Benefits newBenefit(@RequestBody Benefits newBenefit)throws Exception{
+        return benefitsService.newBenefits(newBenefit);
     }
 
     @GetMapping("/{id}")
-    public Benefits getSingleBenefit(@PathVariable Long id)throws Exception{
-        return repository.findById(id)
-                .orElseThrow(() -> new Exception("ID not found: "+id));
+    public Optional<Benefits> getSingleBenefit(@PathVariable Long id)throws Exception{
+        return benefitsService.getBenefitsById(id);
     }
 
     /**
@@ -37,7 +38,7 @@ public class BenefitsController {
      */
 
     @DeleteMapping("/{id}")
-    public void deleteBenefit(@PathVariable Long id) {
-        repository.deleteById(id);
+    public void deleteBenefit(@PathVariable Long id) throws Exception{
+        benefitsService.deleteBenefit(id);
     }
 }

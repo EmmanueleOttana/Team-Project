@@ -1,34 +1,31 @@
 package start.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import start.entities.Performance;
-import start.repositories.PerformanceRepository;
 import org.springframework.web.bind.annotation.*;
+import start.services.PerformanceService;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/performance")
 public class PerformanceController {
-    private final PerformanceRepository repository;
-
-    PerformanceController(PerformanceRepository repository) {
-        this.repository = repository;
-    }
-
+    @Autowired
+    PerformanceService performanceService;
     @GetMapping("")
-    List<Performance> getAllPerformances() {
-        return repository.findAll();
+    List<Performance> getAllPerformances() throws Exception{
+        return performanceService.getAllPerformances();
     }
 
     @PostMapping("")
-    Performance newPerformance(@RequestBody Performance newPerformance){
-        return repository.save(newPerformance);
+    Performance newPerformance(@RequestBody Performance newPerformance)throws Exception{
+        return performanceService.newPerformance(newPerformance);
     }
 
     @GetMapping("/{id}")
-    Performance getSinglePerformance(@PathVariable Long id)throws Exception{
-        return repository.findById(id)
-                .orElseThrow(() -> new Exception("ID not found: "+id));
+    Optional<Performance> getSinglePerformance(@PathVariable Long id)throws Exception{
+        return performanceService.getPerformanceById(id);
     }
 
     /**
@@ -37,7 +34,7 @@ public class PerformanceController {
      */
 
     @DeleteMapping("/{id}")
-    void deletePerformance(@PathVariable Long id) {
-        repository.deleteById(id);
+    void deletePerformance(@PathVariable Long id) throws Exception{
+        performanceService.deletePerformance(id);
     }
 }

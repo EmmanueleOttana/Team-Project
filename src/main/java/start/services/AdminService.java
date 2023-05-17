@@ -1,10 +1,18 @@
 package start.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import start.entities.Admin;
+import start.entities.Employee;
+import start.repositories.AdminRepository;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AdminService {
+    @Autowired
+    AdminRepository adminRepository;
     public Admin admin;
     //password verifica
     public boolean checkPassword(String password){
@@ -25,7 +33,35 @@ public class AdminService {
         }
         return false;
     }
-
-
+    //CRUD
+    public List<Admin> getAllAdmins() throws Exception{
+        List<Admin> allAdminsFromDB = adminRepository.findAll();
+        if (allAdminsFromDB.isEmpty()){
+            throw new Exception("No Admins found!");
+        }
+        return allAdminsFromDB;
+    }
+    public Admin newAdmin(Admin admin)throws Exception{
+        try {
+            if (admin==null) return null;
+            return adminRepository.saveAndFlush(admin);
+        }catch (Exception e){
+            throw new Exception("Admin not found");
+        }
+    }
+    public Optional<Admin> getAdminById(long id) throws Exception{
+        try {
+            return adminRepository.findById(id);
+        }catch (Exception e){
+            throw new Exception("ID not found");
+        }
+    }
+    public void deleteAdmin(long id)throws Exception{
+        try {
+            adminRepository.deleteById(id);
+        }catch (Exception e){
+            throw new Exception("ID not found");
+        }
+    }
 }
 

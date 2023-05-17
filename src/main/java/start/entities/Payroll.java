@@ -22,8 +22,8 @@ public class Payroll {
     private double oreContratto; //contractHours
     @Column
     private LocalTime oreEffettuate; //hoursWorked
-    @Column
-    private double trattenuteStato;
+    /*@Column
+    private double trattenuteStato;*/
     @Column
     private double retribuzioneLorda;
     @Column
@@ -33,7 +33,7 @@ public class Payroll {
         this.employees = employee;
         this.typeOfContract = employee.getTypeOfContract();
         this.oreContratto = this.typeOfContract.getOreDaContratto();
-        this.trattenuteStato = trattenuteStato;
+        //this.trattenuteStato = trattenuteStato;
         this.retribuzioneLorda = retribuzioneLorda;
         this.retribuzioneNetta = retribuzioneNetta;
     }
@@ -60,23 +60,20 @@ public class Payroll {
         return oreEffettuate;
     }
 
-    public double getTrattenuteStato() {
+    /*public double getTrattenuteStato() {
         return trattenuteStato;
     }
 
     public void setTrattenuteStato(double trattenuteStato) {
         this.trattenuteStato = trattenuteStato;
         this.retribuzioneNetta = this.retribuzioneLorda - trattenuteStato;
-    }
+    }*/
 
     public double getRetribuzioneLorda() {
         return retribuzioneLorda;
     }
 
-    public void setRetribuzioneLorda(double retribuzioneLorda) {
-        this.retribuzioneLorda = retribuzioneLorda;
-        this.retribuzioneNetta = retribuzioneLorda - this.trattenuteStato;
-    }
+
 
     public double getRetribuzioneNetta() {
         return retribuzioneNetta;
