@@ -2,6 +2,8 @@ package start.entities;
 
 import jakarta.persistence.*;
 import org.springframework.stereotype.Component;
+import start.DTO.EmployeeDTO;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -33,6 +35,8 @@ public class Employee {
     private LocalTime workHours; //ore di lavoro giornaliero
     @Transient
     private String userName;
+    @Transient
+    private EmployeeDTO employeeDTO;
 
     public Employee(String name,
                     String surname,
@@ -67,7 +71,10 @@ public class Employee {
     public long getId() {
         return id;
     }
-
+    public EmployeeDTO assignEmployeeDTO() {
+        this.employeeDTO = new EmployeeDTO(this);
+        return this.employeeDTO;
+    }
     public String assignUserName() {
         this.userName = "ID Employee: "+ this.id +
                 ", Complete name: "+ this.surname +" "+ this.name;
@@ -76,6 +83,10 @@ public class Employee {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public void setEmployeeDTO(EmployeeDTO employeeDTO) {
+        this.employeeDTO = employeeDTO;
     }
 
     public String getCodiceFiscale() {

@@ -9,10 +9,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+
 import static start.repositories.EmployeeRepository.workingHours;
 
 @Service
@@ -59,11 +57,10 @@ public class EmployeeService {
     }
 
     /**
-     * Ritorna una Map<String,String> di tutte le Ore lavorative degli Employee
+     * Ritorna una Map<String,String> di tutte le Ore lavorative dell' Employee
      * @param employee
      * @return Map<String,String>
      */
-
     public Map<String, String> getHoursEmployee(Employee employee) {
         Map<String, String> hoursEmployee = new HashMap<>();
         String valueKey = employee.assignUserName();
@@ -170,6 +167,11 @@ public class EmployeeService {
         return getHoursEmployee(employee);
     }
 
+    /**
+     * @param id
+     * @return una Map<String,String> con tutte le ore di un singolo dipendente
+     * @throws Exception
+     */
     public Map<String,String> getAllHoursEmployee(long id) throws Exception {
         try {
             return mapConverter(getSingleEmployeeHours(repoEmployee.findById(id).get()));
@@ -177,6 +179,63 @@ public class EmployeeService {
             throw new Exception("Hours not found");
         }
     }
+
+    /**
+     * Converte in stringa un LocalTime rendendo il formato più leggibile
+     * @param time
+     * @return il nuovo formato di ore e minuti
+     */
+    public String convertFromLocalTime(LocalTime time){
+        String crop = String.valueOf(time).substring(0,String.valueOf(time).lastIndexOf(":"));
+        return crop.replaceAll(":", "h")+"'";
+    }
+    /**
+     * Converte in stringa un LocalDateTime rendendo il formato più leggibile
+     * @param dateTime
+     * @return il nuovo formato di ore e minuti
+     */
+    public String convertFromLocalDateTime(LocalDateTime dateTime){
+        String crop = String.valueOf(dateTime).substring(0,String.valueOf(dateTime).lastIndexOf(":"));
+        String newFormat = crop.replaceAll(":", "h")+"'";
+        return newFormat.replaceAll("T", " ");
+    }
+    /**
+     * @return La lista di tutti i dipendenti in azienda
+     */
+    public List<Employee> employeesInTheCompany(){
+        List<Employee> inTheCompany = new ArrayList<>();
+        for ( Employee employee : repoEmployee.findAll() ) {
+            if(employee.getAccessBadge() != null) {
+                inTheCompany.add(employee);
+            }
+        }
+        return inTheCompany;
+    }
+    /**
+     * @param id
+     * @return Una stringa con delle informazioni sull'accesso del dipendente
+     */
+    public String isInTheCompany(long id){      //RENDERE QUESTA FUNZIONE UN ARRAY DI ID
+        Employee employee = repoEmployee.findById(id).orElseThrow();
+            if(employee.getAccessBadge() != null) {
+                LocalTime access = employee.getAccessBadge().toLocalTime();
+                return employee.assignUserName()+" ha effettuato l'accesso alle "+convertFromLocalTime(access);
+            }
+        return "Il dipendente "+employee.assignUserName()+" non è in azienda!";
+    }
+    /**
+     * @return La lista di tutti i dipendenti che non sono in azienda
+     */
+    public List<Employee> employeesAreNotInTheCompany(){
+        List<Employee> NotInTheCompany = new ArrayList<>();
+        for ( Employee employee : repoEmployee.findAll() ) {
+            if(employee.getAccessBadge() == null) {
+                NotInTheCompany.add(employee);
+            }
+        }
+        return NotInTheCompany;
+    }
+    @Deprecated
     public String createDummiesEmployees() throws Exception {
         try {
             Employee employee1 = new Employee("Harry", "Potter", "PTTHRY80L31E098E",
