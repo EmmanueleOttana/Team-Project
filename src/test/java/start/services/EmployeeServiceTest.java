@@ -17,4 +17,11 @@ class EmployeeServiceTest {
         String s = newFormat.replaceAll("T", " ");
         System.out.println(s);
     }
+    @Test
+    void convertFromDouble(){
+        double time = 187.27;
+        String crop = String.valueOf(time);
+        String result = crop.replaceAll("\\.", "h")+"'";
+        System.out.println(result);
+    }
 }

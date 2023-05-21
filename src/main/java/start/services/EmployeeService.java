@@ -2,6 +2,7 @@ package start.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import start.DTO.EmployeeDTO;
 import start.entities.Employee;
 import start.entities.TypeOfContract;
 import start.repositories.EmployeeRepository;
@@ -35,6 +36,7 @@ public class EmployeeService {
                 int hours = totalMinutes / 60;
                 int minutes = totalMinutes % 60;
                 workingHours.put(valueKey, LocalTime.of(hours,minutes));
+                employee.resetAccess();
             }else {
                 workingHours.put(valueKey, LocalTime.of(0, totalMinutes));
                 employee.resetAccess();
@@ -57,21 +59,46 @@ public class EmployeeService {
     }
 
     /**
-     * Ritorna una Map<String,String> di tutte le Ore lavorative dell' Employee
+     * Ritorna una Map<String,String> di tutte le Ore lavorative di un singolo Employee
      * @param employee
      * @return Map<String,String>
      */
+    @Deprecated
     public Map<String, String> getHoursEmployee(Employee employee) {
         Map<String, String> hoursEmployee = new HashMap<>();
         String valueKey = employee.assignUserName();
         for (String key : mapConverter(workingHours).keySet() ) {
-            if (key.contains(valueKey)) {
+            if (key.contains(valueKey) && key.contains(currentMonthAndDay())) {
                 hoursEmployee.put(valueKey, mapConverter(workingHours).get(key));
                 return hoursEmployee;
             }
         }
-        hoursEmployee.put(valueKey, "ha effettuato il primo accesso della giornata!");
+        hoursEmployee.put(valueKey, "Ha appena effettuato l'accesso!");
         return hoursEmployee;
+    }
+
+    /**
+     * Crea il badge
+     * @param id dell'Employee
+     * @return Map<String,String>
+     * @throws Exception
+     */
+    public EmployeeDTO setBadge(long id) throws Exception{
+        LocalDateTime now = LocalDateTime.now();
+        Employee employee = repoEmployee.findById(id).orElseThrow(()
+                -> new Exception("ID not found: "+id));
+        if(employee.getAccessBadge() == null) {
+            employee.setAccessBadge(now);
+            employee.assignEmployeeDTO().setOreEffettuate("Ha appena effettuato l'accesso!");
+            repoEmployee.saveAndFlush(employee);
+        }else {
+            employee.setWorkHours( (int) ChronoUnit.MINUTES.
+                    between(employee.getAccessBadge(),now));
+            employee.assignEmployeeDTO().setOreEffettuate(convertFromLocalTime(employee.getWorkHours()));
+            resetBadge(employee);
+            repoEmployee.saveAndFlush(employee);
+        }
+        return employee.assignEmployeeDTO();
     }
 
     /**
@@ -82,18 +109,25 @@ public class EmployeeService {
     public Map<String, LocalTime> getSingleEmployeeHours(Employee employee) {
         Map<String, LocalTime> employeeHours = new HashMap<>();
         String valueKey = employee.assignUserName();
-        String currentMonth = LocalDate.now().getYear() + "-" +
-                (LocalDate.now().getMonthValue() < 10 ?
-                        "0" + LocalDate.now().getMonthValue() :
-                        LocalDate.now().getMonthValue());
         for (String key : workingHours.keySet()) {
             String keyMonth = key.substring(0,7);
-            if (key.contains(valueKey) && keyMonth.equals(currentMonth)) {
+            if (key.contains(valueKey) && keyMonth.equals(currentMonthAndDay())) {
                 employeeHours.put(key, workingHours.get(key));
             }
         }
         return employeeHours;
     }
+
+    /**
+     * @return Il mese e giorno corrente in stringa
+     */
+    public String currentMonthAndDay(){
+        return LocalDate.now().getYear() + "-" +
+                (LocalDate.now().getMonthValue() < 10 ?
+                        "0" + LocalDate.now().getMonthValue() :
+                        LocalDate.now().getMonthValue());
+    }
+
     // Custom and CRUD calls
     public List<Employee> getAllEmployees() throws Exception{
         List<Employee> allEmployeesFromDB = repoEmployee.findAll();
@@ -145,27 +179,6 @@ public class EmployeeService {
                     return repoEmployee.saveAndFlush(newEmployee);
                 });
     }
-    /**
-     *  Crea il badge
-     * @param id dell'Employee
-     * @return Map<String,String>
-     * @throws Exception
-     */
-    public Map<String,String> setBadge(long id) throws Exception{
-        LocalDateTime now = LocalDateTime.now();
-        Employee employee = repoEmployee.findById(id).orElseThrow(()
-                -> new Exception("ID not found: "+id));
-        if(employee.getAccessBadge() == null) {
-            employee.setAccessBadge(now);
-            repoEmployee.saveAndFlush(employee);
-        }else {
-            employee.setWorkHours( (int) ChronoUnit.MINUTES.
-                    between(employee.getAccessBadge(),now));
-            resetBadge(employee);
-            repoEmployee.saveAndFlush(employee);
-        }
-        return getHoursEmployee(employee);
-    }
 
     /**
      * @param id
@@ -186,9 +199,10 @@ public class EmployeeService {
      * @return il nuovo formato di ore e minuti
      */
     public String convertFromLocalTime(LocalTime time){
-        String crop = String.valueOf(time).substring(0,String.valueOf(time).lastIndexOf(":"));
+        String crop = String.valueOf(time);
         return crop.replaceAll(":", "h")+"'";
     }
+
     /**
      * Converte in stringa un LocalDateTime rendendo il formato più leggibile
      * @param dateTime
@@ -199,6 +213,7 @@ public class EmployeeService {
         String newFormat = crop.replaceAll(":", "h")+"'";
         return newFormat.replaceAll("T", " ");
     }
+
     /**
      * @return La lista di tutti i dipendenti in azienda
      */
@@ -211,6 +226,7 @@ public class EmployeeService {
         }
         return inTheCompany;
     }
+
     /**
      * @param id
      * @return Una stringa con delle informazioni sull'accesso del dipendente
@@ -223,6 +239,7 @@ public class EmployeeService {
             }
         return "Il dipendente "+employee.assignUserName()+" non è in azienda!";
     }
+
     /**
      * @return La lista di tutti i dipendenti che non sono in azienda
      */
@@ -252,4 +269,6 @@ public class EmployeeService {
             throw new Exception("Cannot create Dummies :C");
         }
     }
+
+
 }

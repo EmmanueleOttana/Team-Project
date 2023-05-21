@@ -8,7 +8,7 @@ import start.services.PayrollService;
 
 @Component
 public class EmployeeDTO {
-    private long id;
+    private long idEmployee;
     private String name;
     private String surname;
     private String typeOfContract;
@@ -19,18 +19,18 @@ public class EmployeeDTO {
     PayrollService payrollService;
 
     public EmployeeDTO(Employee employee) {
-        setId(employee.getId());
-        setName(employee.getName());
-        setSurname(employee.getSurname());
-        setTypeOfContract(employee.getTypeOfContract().getDisplayType());
-        setOreEffettuate(employeeService.convertFromLocalTime(payrollService.calculateHours(employee.getId())));
+        this.setIdEmployee(employee.getId());
+        this.setName(employee.getName());
+        this.setSurname(employee.getSurname());
+        this.setTypeOfContract(employee.getTypeOfContract().getDisplayType());
+        this.setOreEffettuate(String.valueOf(payrollService.calculateHours(employee.getId())));
     }
 
     public EmployeeDTO() {
     }
 
-    public long getId() {
-        return id;
+    public long getIdEmployee() {
+        return idEmployee;
     }
 
     public String getName() {
@@ -53,8 +53,8 @@ public class EmployeeDTO {
         this.oreEffettuate = oreEffettuate;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setIdEmployee(long idEmployee) {
+        this.idEmployee = idEmployee;
     }
 
     public void setName(String name) {
@@ -71,12 +71,14 @@ public class EmployeeDTO {
 
     @Override
     public String toString() {
-        return "EmployeeDTO{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", typeOfContract='" + typeOfContract + '\'' +
-                ", oreEffettuate='" + oreEffettuate + '\'' +
-                '}';
+        return "{" +
+                "\nID_Dipendente : " + idEmployee +
+                "\nNome : " + name +
+                "\nCognome : " + surname +
+                "\nTipo_Di_Contratto : " + typeOfContract +
+                "\nOre_Effettuate : " + oreEffettuate +
+                "\n}";
     }
+
+
 }

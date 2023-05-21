@@ -13,6 +13,7 @@ class EmployeeTest {
 
     @Test
     void assignEmployeeDTO() {
+        employee.assignEmployeeDTO();
         System.out.println(employee.assignEmployeeDTO());
     }
 }

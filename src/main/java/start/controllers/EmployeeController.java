@@ -1,6 +1,7 @@
 package start.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import start.DTO.EmployeeDTO;
 import start.entities.Employee;
 import start.repositories.EmployeeRepository;
 import org.springframework.web.bind.annotation.*;
@@ -53,7 +54,7 @@ public class EmployeeController {
      * @throws Exception
      */
     @PutMapping("/badge/{id}")
-    public Map<String, String> badge(@PathVariable long id) throws Exception {
+    public EmployeeDTO badge(@PathVariable long id) throws Exception {
         return employeeService.setBadge(id);
     }
 
@@ -66,19 +67,18 @@ public class EmployeeController {
     }
 
     /**
-     * ritorna una Map<String,String> di tutte le ore dell'Employee
      * @param id
-     * @return Le ore di un singolo employee tramite l'id
+     * @return Un Map<String,String> di tutte le ore dell'Employee tramite l'id
      */
     @GetMapping("/hours/{id}")
     public Map<String, String> getAllHoursEmployee(@PathVariable long id) throws Exception {
         return employeeService.getAllHoursEmployee(id);
     }
     @GetMapping("/totalHours/{id}")
-    public String totalHoursEmployee(@PathVariable long id){
+    public EmployeeDTO totalHoursEmployee(@PathVariable long id){
         Employee employee = repoEmployee.findById(id).orElseThrow();
-        return employee.assignUserName()+", ha effettuato in totale: "+
-                payrollService.calculateHours(id)+" ore di lavoro mensile!";
+        employee.assignEmployeeDTO().setOreEffettuate(payrollService.convertFromDouble(payrollService.calculateHours(id)));
+        return employee.assignEmployeeDTO();
     }
 
     @Deprecated

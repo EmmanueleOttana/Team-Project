@@ -36,7 +36,7 @@ public class Employee {
     @Transient
     private String userName;
     @Transient
-    private EmployeeDTO employeeDTO;
+    private EmployeeDTO employeeDTO = new EmployeeDTO();
 
     public Employee(String name,
                     String surname,
@@ -71,22 +71,21 @@ public class Employee {
     public long getId() {
         return id;
     }
+
     public EmployeeDTO assignEmployeeDTO() {
-        this.employeeDTO = new EmployeeDTO(this);
+        this.employeeDTO.setIdEmployee(this.getId());
+        this.employeeDTO.setName(this.getName());
+        this.employeeDTO.setSurname(this.getSurname());
+        this.employeeDTO.setTypeOfContract(this.getTypeOfContract().getDisplayType());
         return this.employeeDTO;
     }
     public String assignUserName() {
-        this.userName = "ID Employee: "+ this.id +
-                ", Complete name: "+ this.surname +" "+ this.name;
+        this.userName = this.id + this.surname + this.name;
         return this.userName;
     }
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public void setEmployeeDTO(EmployeeDTO employeeDTO) {
-        this.employeeDTO = employeeDTO;
     }
 
     public String getCodiceFiscale() {
