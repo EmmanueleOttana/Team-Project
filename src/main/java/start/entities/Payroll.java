@@ -1,10 +1,6 @@
 package start.entities;
 import jakarta.persistence.*;
-import start.DTO.EmployeeDTO;
 import start.DTO.PayrollDTO;
-import start.services.PayrollService;
-
-import java.time.LocalTime;
 
 @Entity
 @Table
@@ -26,8 +22,8 @@ public class Payroll {
     private double oreContratto; //contractHours
     @Column
     private double oreEffettuate; //hoursWorked
-    /*@Column
-    private double trattenuteStato;*/
+    @Column
+    private double trattenuteStato;
     @Column
     private double retribuzioneLorda;
     @Column
@@ -39,7 +35,7 @@ public class Payroll {
         this.employees = employee;
         this.typeOfContract = employee.getTypeOfContract();
         this.oreContratto = this.typeOfContract.getOreDaContratto();
-        //this.trattenuteStato = trattenuteStato;
+        this.trattenuteStato = trattenuteStato;
         this.retribuzioneLorda = retribuzioneLorda;
         this.retribuzioneNetta = retribuzioneNetta;
     }
@@ -110,10 +106,11 @@ public class Payroll {
     public PayrollDTO getPayrollDTO() {
         return payrollDTO;
     }
+
     public PayrollDTO assignPayrollDTO() {
-        this.payrollDTO.setIdPayroll(this.getId());
-        this.payrollDTO.setOreEffettuate(new PayrollService().convertFromDouble(this.oreEffettuate));
+        this.payrollDTO.setIdBustaPaga(this.getId());
         this.payrollDTO.setRetribuzioneLorda(this.retribuzioneLorda);
+        this.payrollDTO.setTrattenuteDelloStato(this.trattenuteStato);
         this.payrollDTO.setRetribuzioneNetta(this.retribuzioneNetta);
         return this.payrollDTO;
     }

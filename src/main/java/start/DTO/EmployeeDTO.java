@@ -1,17 +1,15 @@
 package start.DTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import start.entities.Employee;
 import start.services.EmployeeService;
 import start.services.PayrollService;
 
-@Component
 public class EmployeeDTO {
-    private long idEmployee;
-    private String name;
-    private String surname;
-    private String typeOfContract;
+    private long idDipendente;
+    private String nome;
+    private String cognome;
+    private String tipoDiContratto;
     private String oreEffettuate;
     @Autowired
     EmployeeService employeeService;
@@ -19,30 +17,30 @@ public class EmployeeDTO {
     PayrollService payrollService;
 
     public EmployeeDTO(Employee employee) {
-        this.setIdEmployee(employee.getId());
-        this.setName(employee.getName());
-        this.setSurname(employee.getSurname());
-        this.setTypeOfContract(employee.getTypeOfContract().getDisplayType());
+        this.setIdDipendente(employee.getId());
+        this.setNome(employee.getName());
+        this.setCognome(employee.getSurname());
+        this.setTipoDiContratto(employee.getTypeOfContract().getDisplayType());
         this.setOreEffettuate(String.valueOf(payrollService.calculateHours(employee.getId())));
     }
 
     public EmployeeDTO() {
     }
 
-    public long getIdEmployee() {
-        return idEmployee;
+    public long getIdDipendente() {
+        return idDipendente;
     }
 
-    public String getName() {
-        return name;
+    public String getNome() {
+        return nome;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getCognome() {
+        return cognome;
     }
 
-    public String getTypeOfContract() {
-        return typeOfContract;
+    public String getTipoDiContratto() {
+        return tipoDiContratto;
     }
 
     public String getOreEffettuate() {
@@ -53,29 +51,29 @@ public class EmployeeDTO {
         this.oreEffettuate = oreEffettuate;
     }
 
-    public void setIdEmployee(long idEmployee) {
-        this.idEmployee = idEmployee;
+    public void setIdDipendente(long idDipendente) {
+        this.idDipendente = idDipendente;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setCognome(String cognome) {
+        this.cognome = cognome;
     }
 
-    public void setTypeOfContract(String typeOfContract) {
-        this.typeOfContract = typeOfContract;
+    public void setTipoDiContratto(String tipoDiContratto) {
+        this.tipoDiContratto = tipoDiContratto;
     }
 
     @Override
     public String toString() {
         return "{" +
-                "\nID_Dipendente : " + idEmployee +
-                "\nNome : " + name +
-                "\nCognome : " + surname +
-                "\nTipo_Di_Contratto : " + typeOfContract +
+                "\nID_Dipendente : " + idDipendente +
+                "\nNome : " + nome +
+                "\nCognome : " + cognome +
+                "\nTipo_Di_Contratto : " + tipoDiContratto +
                 "\nOre_Effettuate : " + oreEffettuate +
                 "\n}";
     }

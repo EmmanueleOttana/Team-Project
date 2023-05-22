@@ -1,35 +1,42 @@
 package start.DTO;
 
-import org.springframework.stereotype.Component;
-import start.entities.Employee;
-import start.entities.Payroll;
-
-@Component
 public class PayrollDTO {
 
-    private long idPayroll;
-    private EmployeeDTO employeeDTO = new EmployeeDTO();
-    private String oreEffettuate;
+    private long idBustaPaga;
+    private EmployeeDTO dipendente = new EmployeeDTO();
     private double retribuzioneLorda;
+    private double trattenuteDelloStato;
     private double retribuzioneNetta;
 
-    public PayrollDTO(Payroll payroll, Employee employee) {
-        this.setIdPayroll(payroll.getId());
-        this.setEmployeeDTO(employee.assignEmployeeDTO());
-        this.setOreEffettuate(String.valueOf(payroll.getOreEffettuate()));
-        this.setRetribuzioneLorda(payroll.getRetribuzioneLorda());
-        this.setRetribuzioneNetta(payroll.getRetribuzioneNetta());
+    public long getIdBustaPaga() {
+        return idBustaPaga;
+    }
+
+    public EmployeeDTO getDipendente() {
+        return dipendente;
+    }
+
+    public double getRetribuzioneLorda() {
+        return retribuzioneLorda;
+    }
+
+    public double getRetribuzioneNetta() {
+        return retribuzioneNetta;
+    }
+
+    public double getTrattenuteDelloStato() {
+        return trattenuteDelloStato;
     }
 
     public PayrollDTO() {
     }
 
-    public void setIdPayroll(long idPayroll) {
-        this.idPayroll = idPayroll;
+    public void setTrattenuteDelloStato(double trattenuteDelloStato) {
+        this.trattenuteDelloStato = trattenuteDelloStato;
     }
 
-    public void setOreEffettuate(String oreEffettuate) {
-        this.oreEffettuate = oreEffettuate;
+    public void setIdBustaPaga(long idBustaPaga) {
+        this.idBustaPaga = idBustaPaga;
     }
 
     public void setRetribuzioneLorda(double retribuzioneLorda) {
@@ -40,19 +47,18 @@ public class PayrollDTO {
         this.retribuzioneNetta = retribuzioneNetta;
     }
 
-    public void setEmployeeDTO(EmployeeDTO employeeDTO) {
-        this.employeeDTO = employeeDTO;
+    public void setDipendente(EmployeeDTO dipendente) {
+        this.dipendente = dipendente;
     }
 
     @Override
     public String toString() {
         return "{" +
-                "\nID_Busta_Paga : " + this.idPayroll +
-                "\nID_Dipendente : " + this.employeeDTO.getIdEmployee() +
-                "\nNome : " + this.employeeDTO.getName() +
-                "\nCognome : " + this.employeeDTO.getSurname() +
-                "\nTipo_Di_Contratto : " + this.employeeDTO.getTypeOfContract() +
-                "\nOre_Effettuate : " + this.oreEffettuate +
+                "\nID_Busta_Paga : " + this.idBustaPaga +
+                "\nID_Dipendente : " + this.dipendente.getIdDipendente() +
+                "\nNome : " + this.dipendente.getNome() +
+                "\nCognome : " + this.dipendente.getCognome() +
+                "\nTipo_Di_Contratto : " + this.dipendente.getTipoDiContratto() +
                 "\nRetribuzione_Lorda : " + this.retribuzioneLorda +
                 "\nRetribuzione_Netta : " + this.retribuzioneNetta +
                 "\n}";

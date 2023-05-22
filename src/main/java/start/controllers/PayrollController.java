@@ -48,7 +48,7 @@ public class PayrollController {
      * @return
      */
     @PostMapping("/create/{id}")
-    public String calculatePayroll(@PathVariable long id)throws Exception {
+    public PayrollDTO calculatePayroll(@PathVariable long id)throws Exception {
         return payrollService.calculatePayrollByID(id);
     }
 

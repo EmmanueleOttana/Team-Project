@@ -215,6 +215,7 @@ public class EmployeeService {
     }
 
     /**
+     * todo Da implementare in classe ADMIN
      * @return La lista di tutti i dipendenti in azienda
      */
     public List<Employee> employeesInTheCompany(){
@@ -228,19 +229,26 @@ public class EmployeeService {
     }
 
     /**
+     * todo Da implementare in classe ADMIN
      * @param id
      * @return Una stringa con delle informazioni sull'accesso del dipendente
      */
-    public String isInTheCompany(long id){      //RENDERE QUESTA FUNZIONE UN ARRAY DI ID
-        Employee employee = repoEmployee.findById(id).orElseThrow();
-            if(employee.getAccessBadge() != null) {
+    public Map<String,String> isInTheCompany(long[] id) {
+        Map<String, String> accesses = new HashMap<>();
+        for (int i = 0; i < id.length; i++) {
+            Employee employee = repoEmployee.findById(id[i]).orElseThrow();
+            if (employee.getAccessBadge() != null) {
                 LocalTime access = employee.getAccessBadge().toLocalTime();
-                return employee.assignUserName()+" ha effettuato l'accesso alle "+convertFromLocalTime(access);
+                accesses.put(employee.assignUserName() + " ha effettuato l'accesso alle", convertFromLocalTime(access));
+            } else {
+                accesses.put(employee.assignUserName(), "Non è in azienda!");
             }
-        return "Il dipendente "+employee.assignUserName()+" non è in azienda!";
+        }
+        return accesses;
     }
 
     /**
+     * todo Da implementare in classe ADMIN
      * @return La lista di tutti i dipendenti che non sono in azienda
      */
     public List<Employee> employeesAreNotInTheCompany(){

@@ -3,7 +3,6 @@ package start.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import start.entities.Admin;
-import start.entities.Employee;
 import start.repositories.AdminRepository;
 
 import java.util.List;

@@ -73,10 +73,10 @@ public class Employee {
     }
 
     public EmployeeDTO assignEmployeeDTO() {
-        this.employeeDTO.setIdEmployee(this.getId());
-        this.employeeDTO.setName(this.getName());
-        this.employeeDTO.setSurname(this.getSurname());
-        this.employeeDTO.setTypeOfContract(this.getTypeOfContract().getDisplayType());
+        this.employeeDTO.setIdDipendente(this.getId());
+        this.employeeDTO.setNome(this.getName());
+        this.employeeDTO.setCognome(this.getSurname());
+        this.employeeDTO.setTipoDiContratto(this.getTypeOfContract().getDisplayType());
         return this.employeeDTO;
     }
     public String assignUserName() {
