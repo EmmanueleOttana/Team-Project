@@ -17,11 +17,16 @@ public class PayrollService {
     @Autowired
     private Contracts contracts;
     @Autowired
-    private EmployeeService employeeService;
-    @Autowired
     private EmployeeRepository employeeRepository;
     @Autowired
     private PayrollRepository payrollRepository;
+
+    public PayrollService(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
+    }
+
+    public PayrollService() {
+    }
 
     /**
      * @param employee
@@ -30,7 +35,7 @@ public class PayrollService {
     public Object[] calculatePayRoll(Employee employee){
         double straordinari = 0.0;
         double oreEffettuate = calculateHours(employee.getId());
-        double oreDaContratto = twoDigits(employee.getTypeOfContract().getOreDaContratto());
+        double oreDaContratto = twoDigits(employee.getContractDuration().getOreDaContratto());
         if ( oreEffettuate  > oreDaContratto ){
             straordinari = oreEffettuate - oreDaContratto;
         }
@@ -104,6 +109,8 @@ public class PayrollService {
      */
     public String convertFromDouble(double number){
         String crop = String.valueOf(number);
+        String cents = crop.substring(crop.indexOf('.')+2);
+        if( cents.isEmpty() ) return crop.replaceAll("\\.", "h0")+"'";
         return crop.replaceAll("\\.", "h")+"'";
     }
 
@@ -115,17 +122,19 @@ public class PayrollService {
         Employee employee = employeeRepository.findById(idEmployee).orElseThrow();
         int hours = 0;
         int minutes = 0;
+        EmployeeService employeeService = new EmployeeService(employeeRepository);
         for (LocalTime time : employeeService.getSingleEmployeeHours(employee).values()) {
             hours += time.getHour();
             minutes += time.getMinute();
         }
-        if(minutes < 60) return Double.parseDouble( hours+"."+minutes);//LocalTime.of(hours,minutes);
-        else {
+        if (minutes >= 60) {
             hours += (minutes / 60);
             minutes = minutes % 60;
-            return Double.parseDouble( hours+"."+minutes);
         }
+        return Double.parseDouble(hours + "."
+                + (minutes < 10 ? "0" + minutes : minutes));
     }
+
     // Custom and CRUD calls
     public List<Payroll> getAllPayrolls()throws Exception{
         List<Payroll> allPayrollsFromDB = payrollRepository.findAll();

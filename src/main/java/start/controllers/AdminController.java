@@ -1,6 +1,8 @@
 package start.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import start.DTO.EmployeeDTO;
+import start.DTO.EmployeeDTOAccess;
 import start.entities.Admin;
 import start.entities.Employee;
 import start.repositories.AdminRepository;
@@ -73,16 +75,15 @@ public class AdminController {
     // ----------------------------------------------------------------
 
     @GetMapping("/employee/company")
-    public List<Employee> employeeInTheCompany () {
+    public List<EmployeeDTOAccess> employeeInTheCompany () {
         return employeeService.employeesInTheCompany();
     }
-
-    @GetMapping("/employee/company/")
+    @GetMapping("/employee/info")
     public Map<String,String> isInTheCompany(@RequestParam long[] id){
         return employeeService.isInTheCompany(id);
     }
-    @GetMapping("/employee/company/absence")
-    public List<Employee> employeesAreNotInTheCompany(){
+    @GetMapping("/employee/absence")
+    public List<EmployeeDTO> employeesAreNotInTheCompany(){
         return employeeService.employeesAreNotInTheCompany();
     }
 

@@ -1,6 +1,7 @@
 package start.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import start.entities.Contracts;
 import start.entities.Dismissal;
 import start.entities.Employee;
 import start.repositories.DismissalRepository;
@@ -11,9 +12,10 @@ import java.util.Optional;
 public class DismissalService {
     @Autowired
     private DismissalRepository dismissalRepository;
+    private Contracts contracts;
+    private Employee employee;
+    private Dismissal dismissal;
 
-    public Employee employee;
-    public Dismissal dismissal;
     public String getTypeOfDismissal() {
         if (dismissal.getReasonsOfDismissal().contains("giusta causa")) {
             return "Licenziamento per giusta causa";
@@ -60,5 +62,9 @@ public class DismissalService {
         }catch (Exception e){
             throw new Exception("ID not found");
         }
+    }
+
+    public Double calculateTfr(){
+        return contracts.getWage()*contracts.getDurationTime();
     }
 }

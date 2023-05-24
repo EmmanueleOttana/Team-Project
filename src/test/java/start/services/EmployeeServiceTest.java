@@ -18,10 +18,36 @@ class EmployeeServiceTest {
         System.out.println(s);
     }
     @Test
+    void convertFromLocalTime() {
+        LocalTime localTime = LocalDateTime.now().toLocalTime();
+        System.out.println(localTime);
+        String crop = String.valueOf(localTime).substring(0,String.valueOf(localTime).lastIndexOf(":"));
+        String newFormat = crop.replaceAll(":", "h")+"'";
+        System.out.println(newFormat);
+    }
+    @Test
     void convertFromDouble(){
         double time = 187.27;
         String crop = String.valueOf(time);
         String result = crop.replaceAll("\\.", "h")+"'";
         System.out.println(result);
     }
+    @Test
+    void viewFromLocalTime() {
+        LocalTime localTime = LocalDateTime.now().toLocalTime();
+        System.out.println(localTime);
+        String crop = String.valueOf(localTime).substring(0, String.valueOf(localTime).lastIndexOf(":"));
+        System.out.println(crop);
+    }
+
+    @Test
+    void convertFromDouble0(){
+        double number = 0.0;
+        String crop = String.valueOf(number);
+        String cents = crop.substring(crop.indexOf('.')+2);
+            if( cents.isEmpty()){System.out.println("funziona");
+            }else System.out.println(" non funziona");
+    }
+
+
 }

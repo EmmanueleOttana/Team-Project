@@ -3,6 +3,7 @@ package start.entities;
 import jakarta.persistence.*;
 import org.springframework.stereotype.Component;
 import start.DTO.EmployeeDTO;
+import start.DTO.EmployeeDTOAccess;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -25,6 +26,8 @@ public class Employee {
     private String typeOfWork;
     @Enumerated(EnumType.ORDINAL)
     private TypeOfContract typeOfContract;
+    @Enumerated(EnumType.ORDINAL)
+    private ContractDuration contractDuration;
     @Column
     private LocalDate dateOfBirth;
     @Column
@@ -37,12 +40,15 @@ public class Employee {
     private String userName;
     @Transient
     private EmployeeDTO employeeDTO = new EmployeeDTO();
+    @Transient
+    private EmployeeDTOAccess employeeDTOAccess = new EmployeeDTOAccess();
 
     public Employee(String name,
                     String surname,
                     String codiceFiscale,
                     String typeOfWork,
                     TypeOfContract typeOfContract,
+                    ContractDuration contractDuration,
                     String dateOfBirth,
                     double pagaOraria)
     {
@@ -51,6 +57,7 @@ public class Employee {
         this.codiceFiscale = codiceFiscale;
         this.typeOfWork = typeOfWork;
         this.typeOfContract = typeOfContract;
+        this.contractDuration = contractDuration;
         this.dateOfBirth = LocalDate.parse(dateOfBirth);
         this.pagaOraria = pagaOraria;
     }
@@ -77,11 +84,28 @@ public class Employee {
         this.employeeDTO.setNome(this.getName());
         this.employeeDTO.setCognome(this.getSurname());
         this.employeeDTO.setTipoDiContratto(this.getTypeOfContract().getDisplayType());
+        this.employeeDTO.setDurataContratto(this.contractDuration.getDiplayType());
         return this.employeeDTO;
     }
     public String assignUserName() {
         this.userName = this.id + this.surname + this.name;
         return this.userName;
+    }
+    public EmployeeDTOAccess assignEmployeeDTOAccess() {
+        this.employeeDTOAccess.setIdDipendente(this.getId());
+        this.employeeDTOAccess.setNome(this.getName());
+        this.employeeDTOAccess.setCognome(this.getSurname());
+        this.employeeDTOAccess.setTipoDiContratto(this.getTypeOfContract().getDisplayType());
+        this.employeeDTOAccess.setDurataContratto(this.contractDuration.getDiplayType());
+        return this.employeeDTOAccess;
+    }
+
+    public ContractDuration getContractDuration() {
+        return contractDuration;
+    }
+
+    public void setContractDuration(ContractDuration contractDuration) {
+        this.contractDuration = contractDuration;
     }
 
     public void setId(long id) {

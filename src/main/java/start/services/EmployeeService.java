@@ -3,6 +3,8 @@ package start.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import start.DTO.EmployeeDTO;
+import start.DTO.EmployeeDTOAccess;
+import start.entities.ContractDuration;
 import start.entities.Employee;
 import start.entities.TypeOfContract;
 import start.repositories.EmployeeRepository;
@@ -18,6 +20,13 @@ import static start.repositories.EmployeeRepository.workingHours;
 public class EmployeeService {
     @Autowired
     EmployeeRepository repoEmployee;
+
+    public EmployeeService(EmployeeRepository repoEmployee) {
+        this.repoEmployee = repoEmployee;
+    }
+
+    public EmployeeService() {
+    }
 
     /**
      * Serve ad inserire gli accessi del dipendente nel HashMap<>() dedicato ed una volta fatto resettarne il badge.
@@ -94,7 +103,7 @@ public class EmployeeService {
         }else {
             employee.setWorkHours( (int) ChronoUnit.MINUTES.
                     between(employee.getAccessBadge(),now));
-            employee.assignEmployeeDTO().setOreEffettuate(convertFromLocalTime(employee.getWorkHours()));
+            employee.assignEmployeeDTO().setOreEffettuate(convertFromLocalTimeChronoUnit(employee.getWorkHours()));
             resetBadge(employee);
             repoEmployee.saveAndFlush(employee);
         }
@@ -194,12 +203,22 @@ public class EmployeeService {
     }
 
     /**
-     * Converte in stringa un LocalTime rendendo il formato più leggibile
+     * Converte in stringa un LocalTimeChronoUnit rendendo il formato più leggibile
+     * @param time
+     * @return il nuovo formato di ore e minuti
+     */
+    public String convertFromLocalTimeChronoUnit(LocalTime time){
+        String crop = String.valueOf(time);
+        return crop.replaceAll(":", "h")+"'";
+    }
+
+    /**
+     * Converte in stringa un LocalTime rendendo il formato a ChronoTime più leggibile
      * @param time
      * @return il nuovo formato di ore e minuti
      */
     public String convertFromLocalTime(LocalTime time){
-        String crop = String.valueOf(time);
+        String crop = String.valueOf(time).substring(0,String.valueOf(time).lastIndexOf(":"));
         return crop.replaceAll(":", "h")+"'";
     }
 
@@ -210,19 +229,31 @@ public class EmployeeService {
      */
     public String convertFromLocalDateTime(LocalDateTime dateTime){
         String crop = String.valueOf(dateTime).substring(0,String.valueOf(dateTime).lastIndexOf(":"));
-        String newFormat = crop.replaceAll(":", "h")+"'";
-        return newFormat.replaceAll("T", " ");
+        return crop.replaceAll("T", " ");
+    }
+
+    /**
+     * Rende un LocalTime in un formato orario più leggibile
+     * @param time
+     * @return Stringa
+     */
+    public String viewFromLocalTime(LocalTime time){
+        return String.valueOf(time)
+                .substring(0, String.valueOf(time)
+                .lastIndexOf(":"));
     }
 
     /**
      * todo Da implementare in classe ADMIN
      * @return La lista di tutti i dipendenti in azienda
      */
-    public List<Employee> employeesInTheCompany(){
-        List<Employee> inTheCompany = new ArrayList<>();
+    public List<EmployeeDTOAccess> employeesInTheCompany(){
+        List<EmployeeDTOAccess> inTheCompany = new ArrayList<>();
         for ( Employee employee : repoEmployee.findAll() ) {
             if(employee.getAccessBadge() != null) {
-                inTheCompany.add(employee);
+                EmployeeDTOAccess dtoAccess = employee.assignEmployeeDTOAccess();
+                dtoAccess.setAccessoBadge(convertFromLocalDateTime(employee.getAccessBadge()));
+                inTheCompany.add(dtoAccess);
             }
         }
         return inTheCompany;
@@ -238,8 +269,8 @@ public class EmployeeService {
         for (int i = 0; i < id.length; i++) {
             Employee employee = repoEmployee.findById(id[i]).orElseThrow();
             if (employee.getAccessBadge() != null) {
-                LocalTime access = employee.getAccessBadge().toLocalTime();
-                accesses.put(employee.assignUserName() + " ha effettuato l'accesso alle", convertFromLocalTime(access));
+                accesses.put(employee.assignUserName() + " accessoBadge"
+                        , convertFromLocalDateTime(employee.getAccessBadge()));
             } else {
                 accesses.put(employee.assignUserName(), "Non è in azienda!");
             }
@@ -251,11 +282,15 @@ public class EmployeeService {
      * todo Da implementare in classe ADMIN
      * @return La lista di tutti i dipendenti che non sono in azienda
      */
-    public List<Employee> employeesAreNotInTheCompany(){
-        List<Employee> NotInTheCompany = new ArrayList<>();
+    public List<EmployeeDTO> employeesAreNotInTheCompany(){
+        PayrollService payrollService = new PayrollService(repoEmployee);
+        List<EmployeeDTO> NotInTheCompany = new ArrayList<>();
         for ( Employee employee : repoEmployee.findAll() ) {
             if(employee.getAccessBadge() == null) {
-                NotInTheCompany.add(employee);
+                employee.assignEmployeeDTO().setOreEffettuate(
+                        payrollService.convertFromDouble(
+                                payrollService.calculateHours(employee.getId())));
+                NotInTheCompany.add(employee.assignEmployeeDTO());
             }
         }
         return NotInTheCompany;
@@ -264,11 +299,11 @@ public class EmployeeService {
     public String createDummiesEmployees() throws Exception {
         try {
             Employee employee1 = new Employee("Harry", "Potter", "PTTHRY80L31E098E",
-                    "Programmatore", TypeOfContract.OPEN_ENDED, "1980-07-31", 10);
+                    "Programmatore", TypeOfContract.OPEN_ENDED, ContractDuration.FULL_TIME, "1980-07-31", 10);
             Employee employee2 = new Employee("Hermione", "Granger", "GRNHMN79P59F158S",
-                    "Professoressa", TypeOfContract.AGENCY_WORK, "1979-09-19", 12);
+                    "Professoressa", TypeOfContract.AGENCY_WORK, ContractDuration.FULL_TIME, "1979-09-19", 12);
             Employee employee3 = new Employee("User", "Fake", "USEFAK80L31E098E",
-                    "Programmatore", TypeOfContract.ON_CALL_CONTRACT, "1991-04-14", 11.5);
+                    "Programmatore", TypeOfContract.ON_CALL_CONTRACT, ContractDuration.PART_TIME, "1991-04-14", 11.5);
             repoEmployee.saveAndFlush(employee1);
             repoEmployee.saveAndFlush(employee2);
             repoEmployee.saveAndFlush(employee3);

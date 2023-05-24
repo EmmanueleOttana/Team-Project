@@ -34,7 +34,7 @@ public class Payroll {
     public Payroll(Employee employee, double trattenuteStato, double retribuzioneLorda, double retribuzioneNetta) {
         this.employees = employee;
         this.typeOfContract = employee.getTypeOfContract();
-        this.oreContratto = this.typeOfContract.getOreDaContratto();
+        this.oreContratto = employee.getContractDuration().getOreDaContratto();
         this.trattenuteStato = trattenuteStato;
         this.retribuzioneLorda = retribuzioneLorda;
         this.retribuzioneNetta = retribuzioneNetta;

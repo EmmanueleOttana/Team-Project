@@ -10,22 +10,8 @@ public class EmployeeDTO {
     private String nome;
     private String cognome;
     private String tipoDiContratto;
+    private String durataContratto;
     private String oreEffettuate;
-    @Autowired
-    EmployeeService employeeService;
-    @Autowired
-    PayrollService payrollService;
-
-    public EmployeeDTO(Employee employee) {
-        this.setIdDipendente(employee.getId());
-        this.setNome(employee.getName());
-        this.setCognome(employee.getSurname());
-        this.setTipoDiContratto(employee.getTypeOfContract().getDisplayType());
-        this.setOreEffettuate(String.valueOf(payrollService.calculateHours(employee.getId())));
-    }
-
-    public EmployeeDTO() {
-    }
 
     public long getIdDipendente() {
         return idDipendente;
@@ -45,6 +31,14 @@ public class EmployeeDTO {
 
     public String getOreEffettuate() {
         return oreEffettuate;
+    }
+
+    public String getDurataContratto() {
+        return durataContratto;
+    }
+
+    public void setDurataContratto(String durataContratto) {
+        this.durataContratto = durataContratto;
     }
 
     public void setOreEffettuate(String oreEffettuate) {
