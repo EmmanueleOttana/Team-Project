@@ -10,6 +10,7 @@ import start.services.EmployeeService;
 
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -68,4 +69,21 @@ public class AdminController {
     void deleteEmployee(@PathVariable Long id) throws Exception {
         employeeService.deleteEmployee(id);
     }
+
+    // ----------------------------------------------------------------
+
+    @GetMapping("/employee/company")
+    public List<Employee> employeeInTheCompany () {
+        return employeeService.employeesInTheCompany();
+    }
+
+    @GetMapping("/employee/company/")
+    public Map<String,String> isInTheCompany(@RequestParam long[] id){
+        return employeeService.isInTheCompany(id);
+    }
+    @GetMapping("/employee/company/absence")
+    public List<Employee> employeesAreNotInTheCompany(){
+        return employeeService.employeesAreNotInTheCompany();
+    }
+
 }
