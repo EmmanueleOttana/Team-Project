@@ -1,6 +1,6 @@
 package start.entities;
 import jakarta.persistence.*;
-import java.time.LocalTime;
+import start.DTO.PayrollDTO;
 
 @Entity
 @Table
@@ -21,19 +21,21 @@ public class Payroll {
     @Column
     private double oreContratto; //contractHours
     @Column
-    private LocalTime oreEffettuate; //hoursWorked
-    /*@Column
-    private double trattenuteStato;*/
+    private double oreEffettuate; //hoursWorked
+    @Column
+    private double trattenuteStato;
     @Column
     private double retribuzioneLorda;
     @Column
     private double retribuzioneNetta;
+    @Transient
+    private PayrollDTO payrollDTO = new PayrollDTO();
 
     public Payroll(Employee employee, double trattenuteStato, double retribuzioneLorda, double retribuzioneNetta) {
         this.employees = employee;
         this.typeOfContract = employee.getTypeOfContract();
         this.oreContratto = this.typeOfContract.getOreDaContratto();
-        //this.trattenuteStato = trattenuteStato;
+        this.trattenuteStato = trattenuteStato;
         this.retribuzioneLorda = retribuzioneLorda;
         this.retribuzioneNetta = retribuzioneNetta;
     }
@@ -56,7 +58,7 @@ public class Payroll {
         return oreContratto;
     }
 */
-    public LocalTime getOreEffettuate() {
+    public double getOreEffettuate() {
         return oreEffettuate;
     }
 
@@ -97,7 +99,19 @@ public class Payroll {
         this.oreContratto = oreContratto;
     }
 
-    public void setOreEffettuate(LocalTime oreEffettuate) {
+    public void setOreEffettuate(double oreEffettuate) {
         this.oreEffettuate = oreEffettuate;
+    }
+
+    public PayrollDTO getPayrollDTO() {
+        return payrollDTO;
+    }
+
+    public PayrollDTO assignPayrollDTO() {
+        this.payrollDTO.setIdBustaPaga(this.getId());
+        this.payrollDTO.setRetribuzioneLorda(this.retribuzioneLorda);
+        this.payrollDTO.setTrattenuteDelloStato(this.trattenuteStato);
+        this.payrollDTO.setRetribuzioneNetta(this.retribuzioneNetta);
+        return this.payrollDTO;
     }
 }

@@ -2,6 +2,7 @@ package start.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import start.DTO.EmployeeDTO;
 import start.entities.Employee;
 import start.entities.TypeOfContract;
 import start.repositories.EmployeeRepository;
@@ -9,10 +10,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+
 import static start.repositories.EmployeeRepository.workingHours;
 
 @Service
@@ -37,6 +36,7 @@ public class EmployeeService {
                 int hours = totalMinutes / 60;
                 int minutes = totalMinutes % 60;
                 workingHours.put(valueKey, LocalTime.of(hours,minutes));
+                employee.resetAccess();
             }else {
                 workingHours.put(valueKey, LocalTime.of(0, totalMinutes));
                 employee.resetAccess();
@@ -59,22 +59,46 @@ public class EmployeeService {
     }
 
     /**
-     * Ritorna una Map<String,String> di tutte le Ore lavorative degli Employee
+     * Ritorna una Map<String,String> di tutte le Ore lavorative di un singolo Employee
      * @param employee
      * @return Map<String,String>
      */
-
+    @Deprecated
     public Map<String, String> getHoursEmployee(Employee employee) {
         Map<String, String> hoursEmployee = new HashMap<>();
         String valueKey = employee.assignUserName();
         for (String key : mapConverter(workingHours).keySet() ) {
-            if (key.contains(valueKey)) {
+            if (key.contains(valueKey) && key.contains(currentMonthAndDay())) {
                 hoursEmployee.put(valueKey, mapConverter(workingHours).get(key));
                 return hoursEmployee;
             }
         }
-        hoursEmployee.put(valueKey, "ha effettuato il primo accesso della giornata!");
+        hoursEmployee.put(valueKey, "Ha appena effettuato l'accesso!");
         return hoursEmployee;
+    }
+
+    /**
+     * Crea il badge
+     * @param id dell'Employee
+     * @return Map<String,String>
+     * @throws Exception
+     */
+    public EmployeeDTO setBadge(long id) throws Exception{
+        LocalDateTime now = LocalDateTime.now();
+        Employee employee = repoEmployee.findById(id).orElseThrow(()
+                -> new Exception("ID not found: "+id));
+        if(employee.getAccessBadge() == null) {
+            employee.setAccessBadge(now);
+            employee.assignEmployeeDTO().setOreEffettuate("Ha appena effettuato l'accesso!");
+            repoEmployee.saveAndFlush(employee);
+        }else {
+            employee.setWorkHours( (int) ChronoUnit.MINUTES.
+                    between(employee.getAccessBadge(),now));
+            employee.assignEmployeeDTO().setOreEffettuate(convertFromLocalTime(employee.getWorkHours()));
+            resetBadge(employee);
+            repoEmployee.saveAndFlush(employee);
+        }
+        return employee.assignEmployeeDTO();
     }
 
     /**
@@ -85,18 +109,25 @@ public class EmployeeService {
     public Map<String, LocalTime> getSingleEmployeeHours(Employee employee) {
         Map<String, LocalTime> employeeHours = new HashMap<>();
         String valueKey = employee.assignUserName();
-        String currentMonth = LocalDate.now().getYear() + "-" +
-                (LocalDate.now().getMonthValue() < 10 ?
-                        "0" + LocalDate.now().getMonthValue() :
-                        LocalDate.now().getMonthValue());
         for (String key : workingHours.keySet()) {
             String keyMonth = key.substring(0,7);
-            if (key.contains(valueKey) && keyMonth.equals(currentMonth)) {
+            if (key.contains(valueKey) && keyMonth.equals(currentMonthAndDay())) {
                 employeeHours.put(key, workingHours.get(key));
             }
         }
         return employeeHours;
     }
+
+    /**
+     * @return Il mese e giorno corrente in stringa
+     */
+    public String currentMonthAndDay(){
+        return LocalDate.now().getYear() + "-" +
+                (LocalDate.now().getMonthValue() < 10 ?
+                        "0" + LocalDate.now().getMonthValue() :
+                        LocalDate.now().getMonthValue());
+    }
+
     // Custom and CRUD calls
     public List<Employee> getAllEmployees() throws Exception{
         List<Employee> allEmployeesFromDB = repoEmployee.findAll();
@@ -148,28 +179,12 @@ public class EmployeeService {
                     return repoEmployee.saveAndFlush(newEmployee);
                 });
     }
+
     /**
-     *  Crea il badge
-     * @param id dell'Employee
-     * @return Map<String,String>
+     * @param id
+     * @return una Map<String,String> con tutte le ore di un singolo dipendente
      * @throws Exception
      */
-    public Map<String,String> setBadge(long id) throws Exception{
-        LocalDateTime now = LocalDateTime.now();
-        Employee employee = repoEmployee.findById(id).orElseThrow(()
-                -> new Exception("ID not found: "+id));
-        if(employee.getAccessBadge() == null) {
-            employee.setAccessBadge(now);
-            repoEmployee.saveAndFlush(employee);
-        }else {
-            employee.setWorkHours( (int) ChronoUnit.MINUTES.
-                    between(employee.getAccessBadge(),now));
-            resetBadge(employee);
-            repoEmployee.saveAndFlush(employee);
-        }
-        return getHoursEmployee(employee);
-    }
-
     public Map<String,String> getAllHoursEmployee(long id) throws Exception {
         try {
             return mapConverter(getSingleEmployeeHours(repoEmployee.findById(id).get()));
@@ -177,6 +192,75 @@ public class EmployeeService {
             throw new Exception("Hours not found");
         }
     }
+
+    /**
+     * Converte in stringa un LocalTime rendendo il formato più leggibile
+     * @param time
+     * @return il nuovo formato di ore e minuti
+     */
+    public String convertFromLocalTime(LocalTime time){
+        String crop = String.valueOf(time);
+        return crop.replaceAll(":", "h")+"'";
+    }
+
+    /**
+     * Converte in stringa un LocalDateTime rendendo il formato più leggibile
+     * @param dateTime
+     * @return il nuovo formato di ore e minuti
+     */
+    public String convertFromLocalDateTime(LocalDateTime dateTime){
+        String crop = String.valueOf(dateTime).substring(0,String.valueOf(dateTime).lastIndexOf(":"));
+        String newFormat = crop.replaceAll(":", "h")+"'";
+        return newFormat.replaceAll("T", " ");
+    }
+
+    /**
+     * todo Da implementare in classe ADMIN
+     * @return La lista di tutti i dipendenti in azienda
+     */
+    public List<Employee> employeesInTheCompany(){
+        List<Employee> inTheCompany = new ArrayList<>();
+        for ( Employee employee : repoEmployee.findAll() ) {
+            if(employee.getAccessBadge() != null) {
+                inTheCompany.add(employee);
+            }
+        }
+        return inTheCompany;
+    }
+
+    /**
+     * todo Da implementare in classe ADMIN
+     * @param id
+     * @return Una stringa con delle informazioni sull'accesso del dipendente
+     */
+    public Map<String,String> isInTheCompany(long[] id) {
+        Map<String, String> accesses = new HashMap<>();
+        for (int i = 0; i < id.length; i++) {
+            Employee employee = repoEmployee.findById(id[i]).orElseThrow();
+            if (employee.getAccessBadge() != null) {
+                LocalTime access = employee.getAccessBadge().toLocalTime();
+                accesses.put(employee.assignUserName() + " ha effettuato l'accesso alle", convertFromLocalTime(access));
+            } else {
+                accesses.put(employee.assignUserName(), "Non è in azienda!");
+            }
+        }
+        return accesses;
+    }
+
+    /**
+     * todo Da implementare in classe ADMIN
+     * @return La lista di tutti i dipendenti che non sono in azienda
+     */
+    public List<Employee> employeesAreNotInTheCompany(){
+        List<Employee> NotInTheCompany = new ArrayList<>();
+        for ( Employee employee : repoEmployee.findAll() ) {
+            if(employee.getAccessBadge() == null) {
+                NotInTheCompany.add(employee);
+            }
+        }
+        return NotInTheCompany;
+    }
+    @Deprecated
     public String createDummiesEmployees() throws Exception {
         try {
             Employee employee1 = new Employee("Harry", "Potter", "PTTHRY80L31E098E",
@@ -193,4 +277,6 @@ public class EmployeeService {
             throw new Exception("Cannot create Dummies :C");
         }
     }
+
+
 }

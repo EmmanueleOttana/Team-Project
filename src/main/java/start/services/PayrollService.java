@@ -1,6 +1,7 @@
 package start.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import start.DTO.PayrollDTO;
 import start.entities.Contracts;
 import start.entities.Employee;
 import start.entities.Payroll;
@@ -26,10 +27,10 @@ public class PayrollService {
      * @param employee
      * @return La busta paga di un employee
      */
-    public Payroll calculatePayRoll(Employee employee){
+    public Object[] calculatePayRoll(Employee employee){
         double straordinari = 0.0;
-        double oreEffettuate = converterLocalTime(calculateHours(employee.getId()));
-        double oreDaContratto = employee.getTypeOfContract().getOreDaContratto();
+        double oreEffettuate = calculateHours(employee.getId());
+        double oreDaContratto = twoDigits(employee.getTypeOfContract().getOreDaContratto());
         if ( oreEffettuate  > oreDaContratto ){
             straordinari = oreEffettuate - oreDaContratto;
         }
@@ -47,11 +48,14 @@ public class PayrollService {
         double retribuzioneLorda = stipendioLordo - tutteLeTrattenute;
         double retribuzioneNetta = retribuzioneLorda - calcolaContributiPensionistici(retribuzioneLorda);
         Payroll newPayroll = new Payroll(employee,
-                tutteLeTrattenute,
-                retribuzioneLorda,
-                retribuzioneNetta);
-        newPayroll.setOreEffettuate(calculateHours(employee.getId()));
-        return newPayroll;
+                twoDigits(tutteLeTrattenute),
+                twoDigits(retribuzioneLorda),
+                twoDigits(retribuzioneNetta));
+        newPayroll.setOreEffettuate(twoDigits(oreEffettuate));
+        PayrollDTO payrollDTO = newPayroll.assignPayrollDTO();
+        payrollDTO.setDipendente(employee.assignEmployeeDTO());
+        payrollDTO.getDipendente().setOreEffettuate(convertFromDouble(newPayroll.getOreEffettuate()));
+        return new Object[]{newPayroll,payrollDTO};
     }
 
     /**
@@ -82,33 +86,44 @@ public class PayrollService {
     }
 
     /**
-     * Converte un LocalTime in un Float
+     * Converte un LocalTime in un Double
      * @param localTime
-     * @return Float
+     * @return Double
      */
-    public float converterLocalTime(LocalTime localTime){
+    public double converterLocalTime(LocalTime localTime){
         int hours = localTime.getHour();
         int minutes = localTime.getMinute();
         String converter = hours + "." + minutes;
-        return Float.parseFloat(converter);
+        return Double.parseDouble(converter);
     }
+
     /**
-     * @param employee
+     * Converte in stringa un Double rendendo il formato più leggibile
+     * @param number
+     * @return il nuovo formato di ore e minuti
+     */
+    public String convertFromDouble(double number){
+        String crop = String.valueOf(number);
+        return crop.replaceAll("\\.", "h")+"'";
+    }
+
+    /**
+     * @param idEmployee
      * @return Somma tutte le ore mensili effettuate da un singolo dipendente.
      */
-    public LocalTime calculateHours(long idEmployee) {
-        Employee employee = employeeRepository.findById(idEmployee).get();
+    public Double calculateHours(long idEmployee) {
+        Employee employee = employeeRepository.findById(idEmployee).orElseThrow();
         int hours = 0;
         int minutes = 0;
         for (LocalTime time : employeeService.getSingleEmployeeHours(employee).values()) {
             hours += time.getHour();
             minutes += time.getMinute();
         }
-        if(minutes < 60) return LocalTime.of(hours,minutes);
+        if(minutes < 60) return Double.parseDouble( hours+"."+minutes);//LocalTime.of(hours,minutes);
         else {
             hours += (minutes / 60);
             minutes = minutes % 60;
-            return LocalTime.of(hours,minutes);
+            return Double.parseDouble( hours+"."+minutes);
         }
     }
     // Custom and CRUD calls
@@ -141,11 +156,21 @@ public class PayrollService {
             throw new Exception("ID not found");
         }
     }
-    public Payroll calculatePayrollByID(long id) throws Exception {
+    public PayrollDTO calculatePayrollByID(long id) throws Exception {
         try {
-            return payrollRepository.saveAndFlush(calculatePayRoll(employeeRepository.findById(id).get()));
+            Object[] payrollComplete = calculatePayRoll(employeeRepository.findById(id).orElseThrow());
+            Payroll payroll = (Payroll) payrollComplete[0];
+            PayrollDTO payrollDTO = (PayrollDTO) payrollComplete[1];
+            payrollRepository.saveAndFlush(payroll);
+            payrollDTO.setIdBustaPaga(payroll.getId());
+            return payrollDTO;
         }catch (Exception e){
             throw new Exception("ID not found");
         }
     }
+    public double twoDigits(double numberDouble){
+        int number = (int) (numberDouble *100);
+        return (double) number /100;
+    }
+
 }

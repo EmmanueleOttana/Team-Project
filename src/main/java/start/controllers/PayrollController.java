@@ -1,6 +1,7 @@
 package start.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import start.DTO.PayrollDTO;
 import start.entities.Payroll;
 import start.repositories.EmployeeRepository;
 import org.springframework.web.bind.annotation.*;
@@ -47,7 +48,7 @@ public class PayrollController {
      * @return
      */
     @PostMapping("/create/{id}")
-    public Payroll calculatePayroll(@PathVariable long id)throws Exception {
+    public PayrollDTO calculatePayroll(@PathVariable long id)throws Exception {
         return payrollService.calculatePayrollByID(id);
     }
 
