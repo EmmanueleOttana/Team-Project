@@ -1,9 +1,0 @@
-typeOfWork\TypeOfWorkServiceTest.class
-performance\PerformanceServiceTest.class
-payroll\PayrollServiceTest.class
-employee\EmployeeEntityTest.class
-admin\AdminServiceTest.class
-peoplePower\PeoplePowerServiceTest.class
-contracts\ContractsServiceTest.class
-benefits\BenefitsServiceTest.class
-dismissal\LicenziamentoServiceTest.class
