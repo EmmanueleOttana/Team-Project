@@ -72,8 +72,6 @@ public class AdminController {
         employeeService.deleteEmployee(id);
     }
 
-    // ----------------------------------------------------------------
-
     @GetMapping("/employee/company")
     public List<EmployeeDTOAccess> employeeInTheCompany () {
         return employeeService.employeesInTheCompany();
