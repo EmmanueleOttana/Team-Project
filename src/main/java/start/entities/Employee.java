@@ -75,6 +75,10 @@ public class Employee {
         return surname;
     }
 
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
     public long getId() {
         return id;
     }
@@ -116,6 +120,10 @@ public class Employee {
         return codiceFiscale;
     }
 
+    public void setCodiceFiscale(String codiceFiscale) {
+        this.codiceFiscale = codiceFiscale;
+    }
+
     public String getTypeOfWork() {
         return typeOfWork;
     }
@@ -139,6 +147,14 @@ public class Employee {
     public void setAccessBadge(LocalDateTime accessBadge) { this.accessBadge = accessBadge; }
 
     public LocalTime getWorkHours() { return workHours; }
+
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public void setWorkHours(LocalTime workHours) {
+        this.workHours = workHours;
+    }
 
     public double getPagaOraria() {
         return pagaOraria;

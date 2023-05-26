@@ -39,8 +39,8 @@ public class EmployeeController {
     }
 
     @PutMapping("/{id}")
-    public Employee replaceEmployee(@PathVariable Long id) {
-        return employeeService.getReplaceEmployee(id);
+    public @ResponseBody Employee replaceEmployee(@PathVariable Long id, @RequestBody Employee employee)throws Exception {
+        return employeeService.getReplaceEmployee(id,employee);
     }
 
     @DeleteMapping("/{id}")

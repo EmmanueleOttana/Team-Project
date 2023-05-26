@@ -175,18 +175,24 @@ public class EmployeeService {
      * @param id dell'Employee
      * @return Employee
      */
-    public Employee getReplaceEmployee(long id){
-        Employee newEmployee = repoEmployee.getReferenceById(id);
-        return repoEmployee.findById(id)
-                .map(employee -> {
-                    employee.setName(newEmployee.getName());
-                    employee.setTypeOfWork(newEmployee.getTypeOfWork());
-                    return repoEmployee.saveAndFlush(employee);
-                })
-                .orElseGet(() -> {
-                    newEmployee.setId(id);
-                    return repoEmployee.saveAndFlush(newEmployee);
-                });
+    public Employee getReplaceEmployee(long id, Employee employee) throws Exception {
+        try {
+            Employee newEmployee = repoEmployee.getReferenceById(id);
+            newEmployee.setId(id);
+            newEmployee.setName(employee.getName());
+            newEmployee.setSurname(employee.getSurname());
+            newEmployee.setCodiceFiscale(employee.getCodiceFiscale());
+            newEmployee.setTypeOfWork(employee.getTypeOfWork());
+            newEmployee.setTypeOfContract(employee.getTypeOfContract());
+            newEmployee.setContractDuration(employee.getContractDuration());
+            newEmployee.setDateOfBirth(employee.getDateOfBirth());
+            newEmployee.setPagaOraria(employee.getPagaOraria());
+            newEmployee.setWorkHours(employee.getWorkHours());
+            return repoEmployee.saveAndFlush(newEmployee);
+        }catch (Exception e){
+            throw new Exception("Cannot Update the Employee");
+        }
+
     }
 
     /**
