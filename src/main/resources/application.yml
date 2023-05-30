@@ -11,3 +11,20 @@ spring:
   jackson:
     serialization:
       fail-on-empty-beans: false
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: root
+    password: Irisviel95
+    driver-class-name:  org.h2.Driver
+  jpa:
+    database: h2
+    hibernate:
+      ddl-auto: create-drop
+  h2:
+    console:
+      enabled: true

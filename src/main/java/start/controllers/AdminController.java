@@ -63,16 +63,14 @@ public class AdminController {
     }
 
     @PutMapping("/employee/{id}")
-    public Employee replaceEmployee(@PathVariable Long id) {
-        return employeeService.getReplaceEmployee(id);
+    public Employee replaceEmployee(@PathVariable Long id, @RequestBody Employee employee) throws Exception{
+        return employeeService.getReplaceEmployee(id,employee);
     }
 
     @DeleteMapping("/employee/{id}")
     void deleteEmployee(@PathVariable Long id) throws Exception {
         employeeService.deleteEmployee(id);
     }
-
-    // ----------------------------------------------------------------
 
     @GetMapping("/employee/company")
     public List<EmployeeDTOAccess> employeeInTheCompany () {
