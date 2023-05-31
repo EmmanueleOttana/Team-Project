@@ -85,4 +85,10 @@ public class AdminController {
         return employeeService.employeesAreNotInTheCompany();
     }
 
+    @GetMapping("/employee/fastsearch/{value}")
+    public List<Employee> fastSearch(@PathVariable String value) throws Exception {
+        return adminService.fastSearch(value);
+    }
+
+
 }

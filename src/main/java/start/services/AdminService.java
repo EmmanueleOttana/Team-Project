@@ -3,8 +3,11 @@ package start.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import start.entities.Admin;
+import start.entities.Employee;
 import start.repositories.AdminRepository;
+import start.repositories.EmployeeRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,6 +15,9 @@ import java.util.Optional;
 public class AdminService {
     @Autowired
     AdminRepository adminRepository;
+    @Autowired
+    EmployeeRepository employeeRepository;
+
     public Admin admin;
     //password verifica
     public boolean checkPassword(String password){
@@ -62,5 +68,28 @@ public class AdminService {
             throw new Exception("ID not found");
         }
     }
+
+    public List<Employee> fastSearch(String value) throws Exception {
+        List<Employee> employeeList = new ArrayList<>();
+        for ( Employee dummy : employeeRepository.findAll() ) {
+            if (String.valueOf(dummy.getId()).toLowerCase().contains(value.toLowerCase())
+            || String.valueOf(dummy.getName()).toLowerCase().contains(value.toLowerCase())
+            || String.valueOf(dummy.getSurname()).toLowerCase().contains(value.toLowerCase())
+            || String.valueOf(dummy.getCodiceFiscale()).toLowerCase().contains(value.toLowerCase())
+            || String.valueOf(dummy.getTypeOfWork()).toLowerCase().contains(value.toLowerCase())
+            || String.valueOf(dummy.getTypeOfContract()).toLowerCase().contains(value.toLowerCase())
+            || String.valueOf(dummy.getContractDuration()).toLowerCase().contains(value.toLowerCase())
+            || String.valueOf(dummy.getDateOfBirth()).toLowerCase().contains(value.toLowerCase())
+            || String.valueOf(dummy.getPagaOraria()).toLowerCase().contains(value.toLowerCase())
+            || String.valueOf(dummy.getAccessBadge()).toLowerCase().contains(value.toLowerCase())){
+                employeeList.add(dummy);
+            }
+        }
+        if (employeeList.isEmpty()) throw new Exception("Nessun utente è stato trovato");
+        return employeeList;
+    }
+
+
+
 }
 
