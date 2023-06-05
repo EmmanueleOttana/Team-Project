@@ -4,20 +4,20 @@ public enum ContractDuration {
     FULL_TIME("Contratto Full Time",160),
     PART_TIME("Contratto Part Time",80);
 
-    private String diplayType;
+    private String displayType;
     private int oreDaContratto;
 
-    ContractDuration(String diplayType, int oreDaContratto) {
-        this.diplayType = diplayType;
+    ContractDuration(String displayType, int oreDaContratto) {
+        this.displayType = displayType;
         this.oreDaContratto = oreDaContratto;
     }
 
-    public String getDiplayType() {
-        return diplayType;
+    public String getDisplayType() {
+        return displayType;
     }
 
-    public void setDiplayType(String diplayType) {
-        this.diplayType = diplayType;
+    public void setDisplayType(String displayType) {
+        this.displayType = displayType;
     }
 
     public int getOreDaContratto() {

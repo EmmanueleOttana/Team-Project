@@ -10,8 +10,10 @@ public class Contracts {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @ManyToOne
-    private Contracts typeOfContract;
+
+    @Enumerated(EnumType.ORDINAL)
+    private TypeOfContract typeOfContract;
+
     @Column
     private double durationTime;
     @Column
@@ -26,7 +28,10 @@ public class Contracts {
     private int hoursContract;
 
 
-    public Contracts(Contracts typeOfContract, double durationTime, double wage, boolean trialPeriod, boolean internshipAlreadyDone, int levelOfContract) {
+    public Contracts(TypeOfContract typeOfContract,
+                     double durationTime, double wage, boolean trialPeriod,
+                     boolean internshipAlreadyDone, int levelOfContract) {
+
         this.typeOfContract = typeOfContract;
         this.durationTime = durationTime;
         this.wage = wage;
@@ -34,6 +39,14 @@ public class Contracts {
         this.internshipAlreadyDone = internshipAlreadyDone;
         this.levelOfContract = levelOfContract;
     }
+    /*public Contracts(Contracts typeOfContract, double durationTime, double wage, boolean trialPeriod, boolean internshipAlreadyDone, int levelOfContract) {
+        this.typeOfContract = typeOfContract;
+        this.durationTime = durationTime;
+        this.wage = wage;
+        this.trialPeriod = trialPeriod;
+        this.internshipAlreadyDone = internshipAlreadyDone;
+        this.levelOfContract = levelOfContract;
+    }*/
     public Contracts(){}
 
     public long getId() {
@@ -44,11 +57,11 @@ public class Contracts {
         this.id = id;
     }
 
-    public Contracts getTypeOfContract() {
+    public TypeOfContract getTypeOfContract() {
         return typeOfContract;
     }
 
-    public void setTypeOfContract(Contracts typeOfContract) {
+    public void setTypeOfContract(TypeOfContract typeOfContract) {
         this.typeOfContract = typeOfContract;
     }
 

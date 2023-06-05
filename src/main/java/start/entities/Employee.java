@@ -88,7 +88,7 @@ public class Employee {
         this.employeeDTO.setNome(this.getName());
         this.employeeDTO.setCognome(this.getSurname());
         this.employeeDTO.setTipoDiContratto(this.getTypeOfContract().getDisplayType());
-        this.employeeDTO.setDurataContratto(this.contractDuration.getDiplayType());
+        this.employeeDTO.setDurataContratto(this.contractDuration.getDisplayType());
         return this.employeeDTO;
     }
     public String assignUserName() {
@@ -100,7 +100,7 @@ public class Employee {
         this.employeeDTOAccess.setNome(this.getName());
         this.employeeDTOAccess.setCognome(this.getSurname());
         this.employeeDTOAccess.setTipoDiContratto(this.getTypeOfContract().getDisplayType());
-        this.employeeDTOAccess.setDurataContratto(this.contractDuration.getDiplayType());
+        this.employeeDTOAccess.setDurataContratto(this.contractDuration.getDisplayType());
         return this.employeeDTOAccess;
     }
 
