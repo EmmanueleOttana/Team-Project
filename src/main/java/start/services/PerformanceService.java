@@ -1,5 +1,6 @@
 package start.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import start.entities.Employee;
 import start.entities.Performance;
@@ -10,7 +11,9 @@ import java.util.Optional;
 
 @Service
 public class PerformanceService {
+    @Autowired
     PerformanceRepository performanceRepository;
+
     public List<Performance> getAllPerformances() throws Exception{
         List<Performance> allPerformancesFromDB = performanceRepository.findAll();
         if (allPerformancesFromDB.isEmpty()){

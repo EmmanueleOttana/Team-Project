@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/scuola
     username: root
-    password: Irisviel95
+    password: 151002
   jpa:
     database: mysql
     show-sql: true
@@ -19,7 +19,7 @@ spring:
   datasource:
     url: jdbc:h2:mem:testdb
     username: root
-    password: Irisviel95
+    password:
     driver-class-name:  org.h2.Driver
   jpa:
     database: h2

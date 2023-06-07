@@ -13,12 +13,12 @@ import java.util.Optional;
 public class PerformanceController {
     @Autowired
     PerformanceService performanceService;
-    @GetMapping("")
+    @GetMapping
     List<Performance> getAllPerformances() throws Exception{
         return performanceService.getAllPerformances();
     }
 
-    @PostMapping("")
+    @PostMapping
     Performance newPerformance(@RequestBody Performance newPerformance)throws Exception{
         return performanceService.newPerformance(newPerformance);
     }
