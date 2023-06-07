@@ -24,7 +24,7 @@ public class PerformanceService {
             if (performance==null) return null;
             return performanceRepository.saveAndFlush(performance);
         }catch (Exception e){
-            throw new Exception("Employee not found");
+            throw new Exception("Performance not found / Null");
         }
     }
     public Optional<Performance> getPerformanceById(long id) throws Exception{

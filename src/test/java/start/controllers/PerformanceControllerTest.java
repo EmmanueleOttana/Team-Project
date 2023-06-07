@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class PerformanceControllerTest {
 
     /**
-     * TODO Da sistemare la classe Performance : Richiede l'Employee
+     * TODO Da sistemare la classe Performance : Da Performance Null
      */
 
     @Autowired
@@ -52,7 +52,11 @@ public class PerformanceControllerTest {
 
 
     private Performance createPerformance() throws Exception{
-        return new Performance(1,1,"TestReview",1,1,1);
+        return new Performance(1,1
+                ,"TestReview"
+                ,1
+                ,1
+                ,1);
     }
     private void createAPerformanceRequest(Performance performance)throws Exception{
         if (performance == null) return;
