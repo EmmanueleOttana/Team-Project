@@ -9,10 +9,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import start.entities.ContractDuration;
-import start.entities.Employee;
+
 import start.entities.Performance;
-import start.entities.TypeOfContract;
+
 
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -26,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class PerformanceControllerTest {
 
     /**
-     * TODO Da sistemare la classe Performance : Richiede l'Employee
+     * TODO Da sistemare la classe Performance : Da Performance Null
      */
 
     @Autowired
@@ -41,19 +40,13 @@ public class PerformanceControllerTest {
         assertThat(performanceController).isNotNull();
     }
 
-    private final Employee testEmployee = new Employee("Test1"
-            , "SurnameTest1"
-            , "testFiscalCode01"
-            , "Tipo Di Lavoro Test"
-            , TypeOfContract.INTERNSHIP
-            , ContractDuration.FULL_TIME
-            , "1999-12-12"
-            ,12.5);
-
+    private final Performance performanceTest = new Performance(1L,1,"ReviewTest",1,1,1);
 
     private Performance createPerformance() throws Exception{
-        return new Performance(1,1,"TestReview",1,1,1);
+
+        return performanceTest;
     }
+
     private void createAPerformanceRequest(Performance performance)throws Exception{
         if (performance == null) return;
         String performanceJSON = objectMapper.writeValueAsString(performance);
@@ -64,6 +57,8 @@ public class PerformanceControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
     }
+
+
     private Performance getPerformance(MvcResult result) throws Exception{
         String performanceJSON = result.getResponse().getContentAsString();
         return objectMapper.readValue(performanceJSON, Performance.class);
@@ -72,7 +67,7 @@ public class PerformanceControllerTest {
     @Test
     void createAPerformanceTest()throws Exception{
         Performance performanceFromResponse = createPerformance();
-        createAPerformanceRequest(performanceFromResponse) ;
+        createAPerformanceRequest(performanceFromResponse);
     }
 
     @Test
